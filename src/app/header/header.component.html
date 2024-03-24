@@ -1,7 +1,15 @@
 <mat-toolbar color="accent" style="flex: 1 1 auto; display: flex; justify-content: space-between;">
     
-    <img class="logo" src="assets/images/{{ logoFilename }}" alt="Logo">
-    <img class="title" src="assets/images/{{ titleFilename }}" alt="Title">
     
-    <img class="user" src="assets/icons/{{ userIconFilename }}" alt="User Icon">
+    <div style="display: flex; justify-content: flex-start; align-items: center;">
+        <app-menu style="padding-right: 20px;"></app-menu>
+        <img class="logo" src="assets/images/{{ logoFilename }}" alt="Logo">
+        <img class="title" src="assets/images/{{ titleFilename }}" alt="Title">
+    </div>
+    
+    <div style="display: flex; align-items: center; justify-content: flex-end;">
+        <p>{{ authService.currentUser }}</p>
+        <img class="user" src="assets/icons/{{ userIconFilename }}" alt="User Icon">
+
+    </div>
 </mat-toolbar>
