@@ -1,15 +1,13 @@
-<mat-toolbar color="accent" style="flex: 1 1 auto; display: flex; justify-content: space-between;">
+<mat-toolbar color="accent" style="flex: 1 1 auto; display: flex; justify-content: space-between; background-color: #460017;">
     
     
     <div style="display: flex; justify-content: flex-start; align-items: center;">
         <app-menu style="padding-right: 20px;"></app-menu>
-        <img class="logo" src="assets/images/{{ logoFilename }}" alt="Logo">
-        <img class="title" src="assets/images/{{ titleFilename }}" alt="Title">
+        <app-logo-title></app-logo-title>
     </div>
     
     <div style="display: flex; align-items: center; justify-content: flex-end;">
-        <p>{{ authService.currentUser }}</p>
-        <img class="user" src="assets/icons/{{ userIconFilename }}" alt="User Icon">
-
+        <app-user-info></app-user-info>
     </div>
+
 </mat-toolbar>
