@@ -13,7 +13,7 @@ import { UserInfoComponent } from "./user-info/user-info.component";
 @Component({
     selector: 'app-header',
     templateUrl: './header.component.html',
-    styleUrl: './header.component.css',
+    styleUrls: ['./header.component.css'],
     standalone : true,
     imports: [MatToolbarModule, MatButtonModule, MatIconModule, MenuComponent, LogoTitleComponent, UserInfoComponent],
   })

@@ -22,7 +22,7 @@ import { HeaderComponent } from './header/header.component';
     MatIconModule,
     MatButtonModule,
     MatToolbarModule,
-    HeaderComponent
+    HeaderComponent,
   ],
   providers: [
     provideClientHydration(),
