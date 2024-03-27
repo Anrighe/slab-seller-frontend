@@ -1,0 +1,7 @@
+.center-container {
+    max-width: 400px; /* Adjust this value as needed */
+    width: 100%;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }

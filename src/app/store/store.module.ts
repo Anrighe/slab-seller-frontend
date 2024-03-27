@@ -1,8 +1,8 @@
-import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import { StoreComponent } from "./store.component";
 import { StoreRoutingModule } from "./store.routing";
+import { CommonModule } from "@angular/common";
 
 
 @NgModule({
