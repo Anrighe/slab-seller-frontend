@@ -24,21 +24,5 @@ export class HeaderComponent {
 
   constructor(private authService: AuthService, private router: Router) { }
   userAuthenticated = this.authService.isAuthenticated();
-  inLoginPage : boolean = false;
-  routeSubscription: Subscription | undefined;
-
-  ngOnInit(): void {
-    this.userAuthenticated = this.authService.isAuthenticated();
-
-    this.routeSubscription = this.router.events.subscribe(event => {
-      if (event instanceof NavigationEnd) {
-        this.inLoginPage = event.url === '/login'; 
-      }
-    });
-  }
-
-  ngOnDestroy(): void {
-    this.routeSubscription?.unsubscribe();
-  }
 
 }
