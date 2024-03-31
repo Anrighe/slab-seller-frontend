@@ -3,18 +3,18 @@
     <div class="form-group">
       <mat-form-field class="w-100 form-font" appearance="outline" color="accent">
         <mat-label class="text-light">Username</mat-label>
-        <input matInput>
+        <input matInput class="text-light">
       </mat-form-field>
     </div>
     <div class="form-group">
       <mat-form-field class="w-100 form-font mat-form-field-appearance-outline" appearance="outline" color="accent" >
         <mat-label class="text-light">Password</mat-label>
-        <input matInput [type]="'password'">
+        <input matInput [type]="'password'" class="text-light">
         
       </mat-form-field>
     </div>
     <div align="end">
-      <button mat-raised-button color="warn w-100" style="background-color: #460017;">Login</button>
+      <button mat-raised-button color="warn w-100" style="background-color: #460017;" (click)="redirectToHomePage()">Login</button>
     </div>
   </form>
   <div>
