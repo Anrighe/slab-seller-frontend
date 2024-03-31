@@ -7,18 +7,38 @@ import { MenuComponent } from "./menu/menu.component";
 import { LogoTitleComponent } from "./logo-title/logo-title.component";
 import { userInfo } from "os";
 import { UserInfoComponent } from "./user-info/user-info.component";
+import { ActivatedRoute, NavigationEnd, Router, RouterModule, RouterStateSnapshot } from "@angular/router";
+import { NgIf } from "@angular/common";
+import { Subscription } from "rxjs";
 
 
 
 @Component({
-    selector: 'app-header',
-    templateUrl: './header.component.html',
-    styleUrls: ['./header.component.css'],
-    standalone : true,
-    imports: [MatToolbarModule, MatButtonModule, MatIconModule, MenuComponent, LogoTitleComponent, UserInfoComponent],
-  })
+  selector: 'app-header',
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.css'],
+  standalone: true,
+  imports: [MatToolbarModule, MatButtonModule, MatIconModule, MenuComponent, LogoTitleComponent, UserInfoComponent, NgIf],
+})
 export class HeaderComponent {
 
-  constructor() { }
-  
+  constructor(private authService: AuthService, private router: Router) { }
+  userAuthenticated = this.authService.isAuthenticated();
+  inLoginPage : boolean = false;
+  routeSubscription: Subscription | undefined;
+
+  ngOnInit(): void {
+    this.userAuthenticated = this.authService.isAuthenticated();
+
+    this.routeSubscription = this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.inLoginPage = event.url === '/login'; 
+      }
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.routeSubscription?.unsubscribe();
+  }
+
 }

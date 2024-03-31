@@ -2,12 +2,12 @@
     
     
     <div style="display: flex; justify-content: flex-start; align-items: center;">
-        <app-menu style="padding-right: 20px;"></app-menu>
+        <app-menu style="padding-right: 20px;" [hidden]="userAuthenticated"></app-menu>
         <app-logo-title></app-logo-title>
     </div>
     
     
-    <app-user-info></app-user-info>
+    <app-user-info [hidden]="userAuthenticated"></app-user-info>
     
 
 </mat-toolbar>

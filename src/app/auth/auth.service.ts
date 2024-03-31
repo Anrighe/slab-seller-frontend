@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 
-@Injectable({providedIn: 'root'}) // providedIn: 'root' is a new way to provide a service in Angular 6
+@Injectable({providedIn: 'root'})
 export class AuthService{
 	currentUser: String = 'Placeholder User';
 
@@ -12,7 +12,7 @@ export class AuthService{
 		interact with this provider to check the authentication state for the current user dynamically.
 	*/
 
-	isAuthenticated(){
+	isAuthenticated() {
 			return !!this.currentUser;
 	}
 }
