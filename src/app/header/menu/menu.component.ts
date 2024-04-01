@@ -3,7 +3,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { MENU_ITEMS, MenuItem } from "./menu-items";
+import { USER_SECTIONS, Sections } from "../../commons/sections";
 import { CommonModule } from '@angular/common';
 
 
@@ -18,7 +18,7 @@ export class MenuComponent {
   constructor() { }
 
 
-  menuItems: MenuItem[] = MENU_ITEMS;
+  sections: Sections[] = USER_SECTIONS;
 
   
 }

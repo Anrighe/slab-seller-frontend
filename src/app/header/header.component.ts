@@ -6,11 +6,11 @@ import { AuthService } from '../auth/auth.service';
 import { MenuComponent } from "./menu/menu.component";
 import { LogoTitleComponent } from "./logo-title/logo-title.component";
 import { userInfo } from "os";
-import { UserInfoComponent } from "./user-info/user-info.component";
+import { SectionsComponent } from "./sections/sections.component";
 import { ActivatedRoute, NavigationEnd, Router, RouterModule, RouterStateSnapshot } from "@angular/router";
-import { NgIf } from "@angular/common";
+import { NgFor, NgIf } from "@angular/common";
 import { Subscription } from "rxjs";
-
+import { Sections, USER_SECTIONS } from "../commons/sections";
 
 
 @Component({
@@ -18,11 +18,13 @@ import { Subscription } from "rxjs";
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
   standalone: true,
-  imports: [MatToolbarModule, MatButtonModule, MatIconModule, MenuComponent, LogoTitleComponent, UserInfoComponent, NgIf],
+  imports: [MatToolbarModule, MatButtonModule, MatIconModule, MenuComponent, LogoTitleComponent, SectionsComponent, NgIf, NgFor],
 })
 export class HeaderComponent {
 
   constructor(private authService: AuthService, private router: Router) { }
   userAuthenticated = this.authService.isAuthenticated();
+
+  section: Sections[] = USER_SECTIONS;
 
 }

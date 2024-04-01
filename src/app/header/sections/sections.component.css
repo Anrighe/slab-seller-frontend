@@ -1,0 +1,12 @@
+.user { 
+	width: 10%;
+	height: 10%;
+	padding-left: 10px;
+}
+
+.navbar-button {
+	height: 100%; 
+	padding: 17px;
+	font-size: min(2.5vw, 2.5vh);
+}
+  

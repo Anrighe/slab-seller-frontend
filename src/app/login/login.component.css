@@ -14,20 +14,13 @@
 }
 
 .form-font{
-  font-size: min(2.5vh, 2.5vw);
+  font-size: min(2vh, 2vw);
 }
 
 .form-label-font{
-  font-size: min(2.5vh, 2.5vw);
+  font-size: min(2vh, 2vw);
 }
 
-::ng-deep {
-  .mat-form-field-appearance-outline .mat-form-field-outline {
-     color: white !important;
-  }
-  mat-form-field {
-     .mat-hint, input, ::placeholder, .mat-form-field-label {
-        color: white !important;
-     }
-  }
+.login-form {
+  max-width: 500px;
 }

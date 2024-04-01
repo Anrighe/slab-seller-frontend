@@ -10,7 +10,7 @@ import { CommonModule } from "@angular/common";
     imports: [
         CommonModule,
         RouterModule,
-        StoreRoutingModule
+        StoreRoutingModule,
         //RouterModule.forChild([
         //    { path: '', component: StoreComponent },
         //]),
