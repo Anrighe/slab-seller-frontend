@@ -5,6 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { USER_SECTIONS, Sections } from "../../commons/sections";
 import { CommonModule } from '@angular/common';
+import { StoreSidenavService } from "../../store/store-sidenav.service";
 
 
 @Component({
@@ -15,10 +16,14 @@ import { CommonModule } from '@angular/common';
   imports: [MatMenuModule, MenuComponent, MatIconModule, MatButtonModule, MatToolbarModule, CommonModule]
 })
 export class MenuComponent {
-  constructor() { }
+  constructor(private storeSidenavService: StoreSidenavService) { }
 
 
   sections: Sections[] = USER_SECTIONS;
+
+  openSidenavBar() {
+    this.storeSidenavService.toggleSideNav();
+  }
 
   
 }

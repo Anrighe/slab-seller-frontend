@@ -5,6 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { USER_SECTIONS, Sections } from "../../commons/sections";
 import { NgFor } from "@angular/common";
 
+
 @Component({
   selector: 'app-sections',
   templateUrl: './sections.component.html',
@@ -17,5 +18,6 @@ export class SectionsComponent {
   userIconFilename: String = 'user.png';
 
   sections: Sections[] = USER_SECTIONS;
+
 
 }

@@ -9,3 +9,9 @@
     max-height: 45%;
     max-width: 45%;
 }
+
+@media (max-width: 576px) {
+    .title {
+      display: none;
+    }
+  }

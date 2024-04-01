@@ -3,6 +3,10 @@ import { StoreFilterComponent } from "./store-filter/store-filter.component";
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatButtonModule} from '@angular/material/button';
+import { StoreSidenavService } from "./store-sidenav.service";
+import {MatDividerModule} from '@angular/material/divider';
+
+import {MatListModule} from '@angular/material/list';
 
 @Component({
     selector: 'app-store',
@@ -13,14 +17,13 @@ import {MatButtonModule} from '@angular/material/button';
         StoreFilterComponent,
         MatGridListModule,
         MatSidenavModule,
-        MatButtonModule
+        MatButtonModule,
+        MatDividerModule,
+        MatListModule
     ]
 })
 export class StoreComponent {
-    constructor() { }
-    ngOnInit() {
-        
-    }
+    constructor(public storeSidenavService: StoreSidenavService) { }
 
     showFiller = false;
 }
