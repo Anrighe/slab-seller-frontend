@@ -1,3 +1,5 @@
+import { HttpClient, HttpErrorResponse } from "@angular/common/http";
+
 import { Injectable } from "@angular/core";
 
 @Injectable({providedIn: 'root'})
@@ -13,6 +15,8 @@ export class AuthService{
 	*/
 
 	isAuthenticated() {
-			return !!this.currentUser;
+		return !!this.currentUser;
 	}
+
+	
 }

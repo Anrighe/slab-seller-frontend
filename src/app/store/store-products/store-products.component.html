@@ -1,0 +1,28 @@
+<div class="sidenav-content" style="display: flex; flex-direction: column;">
+
+
+
+		<div class="row row-cols-2 row-cols-md-4 row-cols-xl-5 justify-content-center ml-4 mr-4 mt-4" style=" padding-left: 100px; padding-right: 100px;">
+			<div class="col mb-2" *ngFor="let product of products" >
+				<div class="card h-100">
+
+					<img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="...">
+					
+					<div class="card-body p-4">
+						<div class="text-center">
+													
+							<h5 class="fw-bolder">Fancy Product</h5>
+													
+							$40.00 - $80.00
+						</div>
+					</div>
+					
+					<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+						<div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View options</a></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<app-store-paginator></app-store-paginator>
+

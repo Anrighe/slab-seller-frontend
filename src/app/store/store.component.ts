@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { StoreFilterComponent } from "./store-filter/store-filter.component";
+import { StoreFiltersComponent } from "./store-filters/store-filters.component";
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatButtonModule} from '@angular/material/button';
@@ -7,6 +7,8 @@ import { StoreSidenavService } from "./store-sidenav.service";
 import {MatDividerModule} from '@angular/material/divider';
 
 import {MatListModule} from '@angular/material/list';
+import { StoreProductsComponent } from "./store-products/store-products.component";
+import { StorePaginatorComponent } from "./store-paginator/store-paginator.component";
 
 @Component({
     selector: 'app-store',
@@ -14,12 +16,14 @@ import {MatListModule} from '@angular/material/list';
     styleUrls: ['./store.component.css'],
     standalone: true,
     imports: [
-        StoreFilterComponent,
+        StoreFiltersComponent,
         MatGridListModule,
         MatSidenavModule,
         MatButtonModule,
         MatDividerModule,
-        MatListModule
+        MatListModule,
+        StoreProductsComponent,
+        StorePaginatorComponent
     ]
 })
 export class StoreComponent {

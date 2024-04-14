@@ -1,8 +1,9 @@
 .sidenav-container {
     width: 100%;
 
-    height: 93vh;
-    overflow: hidden !important;
+    /*height: 93vh;*/
+    height: 100%;
+    overflow: auto !important;
 }
   
 .sidenav-content {

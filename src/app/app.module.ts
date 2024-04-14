@@ -9,6 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { HeaderComponent } from './header/header.component';
+import { StoreProductsComponent } from './store/store-products/store-products.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { HeaderComponent } from './header/header.component';
     MatButtonModule,
     MatToolbarModule,
     HeaderComponent,
+    StoreProductsComponent
   ],
   providers: [
     provideClientHydration(),

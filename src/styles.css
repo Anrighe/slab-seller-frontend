@@ -4,7 +4,7 @@ body {
     margin: 0; 
     font-family: Roboto, "Helvetica Neue", sans-serif; 
     background-color: #181a1b !important; 
-    /*overflow-y: hidden;*/
+    overflow-y: hidden;
 }
 
 .dark-background-color {
