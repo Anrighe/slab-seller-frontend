@@ -49,10 +49,8 @@ export class LoginComponent {
         console.log("LOGGING IN");
         
         let loginRequest: AuthenticationRequestDTO = {
-            //username: this.loginForm.value.username,
-            //password: this.loginForm.value.password
-            username: "developer",
-            password: "123"
+            username: this.loginForm.value.username,
+            password: this.loginForm.value.password
         };
 
         this.authenticationService.apiAuthenticationTokenRequestPost(loginRequest).subscribe(response => {

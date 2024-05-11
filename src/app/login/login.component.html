@@ -3,13 +3,13 @@
     <div class="form-group">
       <mat-form-field class="w-100 form-font" appearance="outline" color="accent">
         <mat-label class="text-light">Username</mat-label>
-        <input matInput class="text-light">
+        <input matInput class="text-light" formControlName="username">
       </mat-form-field>
     </div>
     <div class="form-group">
       <mat-form-field class="w-100 form-font mat-form-field-appearance-outline" appearance="outline" color="accent" >
         <mat-label class="text-light">Password</mat-label>
-        <input matInput [type]="'password'" class="text-light">
+        <input matInput [type]="'password'" class="text-light" formControlName="password">
         
       </mat-form-field>
     </div>
