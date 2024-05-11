@@ -1,12 +1,6 @@
 <mat-drawer-container class="sidenav-container dark-background-color" autosize>
 	<mat-drawer #drawer class="sidenav" mode="side" [opened]="storeSidenavService.getSideNavState()">
-		<p>Auto-resizing sidenav</p>
-		@if (showFiller) {
-		<p>Lorem, ipsum dolor sit amet consectetur.</p>
-		}
-		<button (click)="showFiller = !showFiller" mat-raised-button>
-			Toggle extra text
-		</button>
+		<app-store-filters></app-store-filters>
 	</mat-drawer>
 
 	<app-store-products></app-store-products>

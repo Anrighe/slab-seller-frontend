@@ -14,5 +14,5 @@ import { StorePaginatorComponent } from "../store-paginator/store-paginator.comp
 })
 export class StoreProductsComponent {
 
-    products = Array.from({length: 10}, (_, i) => i);
+    products = Array.from({length: 30}, (_, i) => i);
 }

@@ -2,7 +2,7 @@
 
 
 
-		<div class="row row-cols-2 row-cols-md-4 row-cols-xl-5 justify-content-center ml-4 mr-4 mt-4" style=" padding-left: 100px; padding-right: 100px;">
+		<div class="row row-cols-auto row-cols-md-3 row-cols-xl-5 justify-content-center ml-4 mr-4 mt-4" style="padding-left: 100px; padding-right: 100px;">
 			<div class="col mb-2" *ngFor="let product of products" >
 				<div class="card h-100">
 
@@ -23,6 +23,6 @@
 				</div>
 			</div>
 		</div>
+		<app-store-paginator></app-store-paginator>
 	</div>
-<app-store-paginator></app-store-paginator>
 

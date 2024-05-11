@@ -24,7 +24,7 @@ import { StoreProductsComponent } from './store/store-products/store-products.co
     MatButtonModule,
     MatToolbarModule,
     HeaderComponent,
-    StoreProductsComponent
+    StoreProductsComponent,
   ],
   providers: [
     provideClientHydration(),
