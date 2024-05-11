@@ -11,6 +11,10 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { HeaderComponent } from './header/header.component';
 import { StoreProductsComponent } from './store/store-products/store-products.component';
 
+import { HttpClientModule } from '@angular/common/http';
+import { BASE_PATH } from '../openapi';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,10 +29,12 @@ import { StoreProductsComponent } from './store/store-products/store-products.co
     MatToolbarModule,
     HeaderComponent,
     StoreProductsComponent,
+    HttpClientModule,
   ],
   providers: [
     provideClientHydration(),
-    provideAnimationsAsync()
+    provideAnimationsAsync(),
+    { provide: BASE_PATH, useValue: 'http://localhost:8081' }
   ],
   bootstrap: [AppComponent]
 })

@@ -1,5 +1,5 @@
 <div class="container center-container login-form" mat-dialog-content >
-  <form>
+  <form [formGroup]="loginForm" (ngSubmit)="login()"> 
     <div class="form-group">
       <mat-form-field class="w-100 form-font" appearance="outline" color="accent">
         <mat-label class="text-light">Username</mat-label>
@@ -14,7 +14,7 @@
       </mat-form-field>
     </div>
     <div align="end">
-      <button mat-raised-button color="warn w-100" style="background-color: #460017;" (click)="redirectToHomePage()">Login</button>
+      <button mat-raised-button color="warn w-100" style="background-color: #460017;">Login</button>
     </div>
   </form>
   <div>

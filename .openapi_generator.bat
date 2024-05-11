@@ -1,0 +1,1 @@
+npx openapi-generator-cli generate -i openapi.yaml -g typescript-angular -o src/openapi --additional-properties fileNaming=kebab-case,withInterfaces=true --generate-alias-as-model

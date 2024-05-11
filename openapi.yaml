@@ -1,0 +1,219 @@
+---
+openapi: 3.0.3
+info:
+  title: slab-seller-backend API
+  version: 1.0.0-SNAPSHOT
+paths:
+  /api/authentication/token/refresh:
+    post:
+      tags:
+      - Authentication Resource
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenRefreshRequestDTO'
+      responses:
+        "200":
+          description: OK
+  /api/authentication/token/request:
+    post:
+      tags:
+      - Authentication Resource
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthenticationRequestDTO'
+      responses:
+        "200":
+          description: OK
+  /api/authentication/token/validate:
+    post:
+      tags:
+      - Authentication Resource
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenValidationRequestDTO'
+      responses:
+        "200":
+          description: OK
+  /api/user/create:
+    post:
+      tags:
+      - User Resource
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserCreationRequestDTO'
+      responses:
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not found
+        "500":
+          description: Internal Server Error
+        "201":
+          description: User created successfully
+  /api/user/update/info:
+    put:
+      tags:
+      - User Resource
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserInfoUpdateRequestDTO'
+      responses:
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not found
+        "500":
+          description: Internal Server Error
+        "204":
+          description: User info successfully updated
+  /api/user/update/password:
+    put:
+      tags:
+      - User Resource
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserPasswordUpdateRequestDTO'
+      responses:
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not found
+        "500":
+          description: Internal Server Error
+        "204":
+          description: User password successfully updated
+  /slab/all:
+    get:
+      tags:
+      - Slab Resource
+      summary: Returns a list of all slabs
+      description: Returns a list of all slabs
+      responses:
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not found
+        "500":
+          description: Internal Server Error
+        "200":
+          description: List successfully returned
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SlabDTO'
+  /test:
+    get:
+      tags:
+      - Test Resource
+      responses:
+        "200":
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+components:
+  schemas:
+    AuthenticationRequestDTO:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+    SlabDTO:
+      type: object
+      properties:
+        id:
+          type: string
+        collection:
+          type: string
+        color:
+          type: string
+        tone:
+          type: string
+        width:
+          format: int32
+          type: integer
+        height:
+          format: int32
+          type: integer
+    TokenRefreshRequestDTO:
+      type: object
+      properties:
+        refreshToken:
+          type: string
+    TokenValidationRequestDTO:
+      type: object
+      properties:
+        token:
+          type: string
+    UserCreationRequestDTO:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+        email:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        enabled:
+          type: boolean
+        token:
+          type: string
+    UserInfoUpdateRequestDTO:
+      type: object
+      properties:
+        userId:
+          type: string
+        email:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        token:
+          type: string
+    UserPasswordUpdateRequestDTO:
+      type: object
+      properties:
+        username:
+          type: string
+        newPassword:
+          type: string
+        oldPassword:
+          type: string
