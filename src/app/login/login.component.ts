@@ -5,61 +5,97 @@ import { MatButton } from "@angular/material/button";
 import { ThemePalette } from "@angular/material/core";
 import { Router } from "@angular/router";
 
-import { AuthenticationRequestDTO, AuthenticationResourceService } from "../../openapi";
-import { FormGroup, FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { 
+	AuthenticationRequestDTO, 
+	AuthenticationResourceService, 
+	TokenValidationRequestDTO, 
+	TokenRefreshRequestDTO } from "../../openapi";
+	
+import { 
+	FormGroup, 
+	FormControl, 
+	FormsModule, 
+	ReactiveFormsModule, 
+	Validators } from '@angular/forms';
 
 
 @Component({
-    selector: 'app-login',
-    templateUrl: './login.component.html',
-    styleUrls: ['./login.component.css'],
-    standalone : true,
-    imports: [
-        MatInputModule,
-        MatIconModule,
-        MatButton,
-        ReactiveFormsModule
-    ]
+	selector: 'app-login',
+	templateUrl: './login.component.html',
+	styleUrls: ['./login.component.css'],
+	standalone : true,
+	imports: [
+		MatInputModule,
+		MatIconModule,
+		MatButton,
+		ReactiveFormsModule
+	]
 })
 export class LoginComponent {
 
-    loginForm: FormGroup;
+	loginForm: FormGroup;
 
-    constructor(private router: Router, private authenticationService: AuthenticationResourceService) {
-        
-        //TODO: make username, password mandatory with validators
-        
-        this.loginForm = new FormGroup({
-            'username': new FormControl(''),
-            'password': new FormControl('')
-        });
-    }
+	constructor(private router: Router, private authenticationService: AuthenticationResourceService) {
 
-    hidePassword = true;
-    colorControl = new FormControl('primary' as ThemePalette);
+		if (typeof window !== 'undefined') {
+			let localStorageToken = localStorage.getItem('sessionToken');
+			let localStorageRefreshToken = localStorage.getItem('refreshSessionToken');
 
-    // TODO: substitute this method with a call to the authentication service
-    redirectToHomePage() {
-        this.router.navigate(['']);
-    }
+				if (localStorageToken !== null) {
+							
+					let tokenValidationRequest: TokenValidationRequestDTO = {
+						token: localStorageToken
+					}
 
+					authenticationService.apiAuthenticationTokenValidatePost(tokenValidationRequest).subscribe(response => {
+							this.router.navigate(['']);
+					}, error => {
+							console.log("Local storage token not valid, proceeding to login page");
+					})
+							
+					} else if (localStorageRefreshToken !== null) {
 
-    login() {
-        console.log(this.loginForm.value.username);
-        console.log("LOGGING IN");
-        
-        let loginRequest: AuthenticationRequestDTO = {
-            username: this.loginForm.value.username,
-            password: this.loginForm.value.password
-        };
+						let tokenRefreshRequest: TokenRefreshRequestDTO = {
+							refreshToken: localStorageRefreshToken
+						}
 
-        this.authenticationService.apiAuthenticationTokenRequestPost(loginRequest).subscribe(response => {
+						authenticationService.apiAuthenticationTokenRefreshPost(tokenRefreshRequest).subscribe(response => {
+							localStorage.setItem('sessionToken', response.token);
+							this.router.navigate(['']);
+						}, error => {
+							console.log("Error while refreshing session token with local storage refresh token, proceeding to login page")
+						})
+					} 
+		}
+			
+		this.loginForm = new FormGroup({
+			'username': new FormControl('', Validators.required),
+			'password': new FormControl('', Validators.required)
+		});
+	}
 
-            console.log('Login successful', response);
-            
-            this.router.navigate(['']);
-        }, error => {
-            console.error('Login failed', error);
-        })
-    }
+	hidePassword = true;
+	colorControl = new FormControl('primary' as ThemePalette);
+
+	login() {
+			
+		let loginRequest: AuthenticationRequestDTO = {
+			username: this.loginForm.value.username,
+			password: this.loginForm.value.password
+		};
+
+		this.authenticationService.apiAuthenticationTokenRequestPost(loginRequest).subscribe(response => {
+				
+			this.saveTokenOnLocalStorage(response.token, response.refreshToken);
+
+			this.router.navigate(['']);
+		}, error => {
+			console.error('Login failed', error);
+		})
+	}
+
+	saveTokenOnLocalStorage(token: string, refreshToken: string) {
+			localStorage.setItem('sessionToken', token);
+			localStorage.setItem('refreshSessionToken', refreshToken)
+	}
 }
