@@ -22,9 +22,25 @@ import { Sections, USER_SECTIONS } from "../commons/sections";
 })
 export class HeaderComponent {
 
-  constructor(private authService: AuthService, private router: Router) { }
-  userAuthenticated = this.authService.isAuthenticated();
-
+  userAuthenticated = false;
+  subscriptions: Subscription[] = [];
   section: Sections[] = USER_SECTIONS;
+  
+  constructor(private authService: AuthService, private router: Router) {
+
+    const subscription = this.authService.getUserAuthenticatedUI().subscribe(
+      (isAuthenticated) => {
+        this.userAuthenticated = isAuthenticated;
+      }
+    );
+  }
+
+    
+
+
+
+  onDestroy() {
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
+  }
 
 }
