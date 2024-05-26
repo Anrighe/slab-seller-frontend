@@ -4,12 +4,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButton } from "@angular/material/button";
 import { ThemePalette } from "@angular/material/core";
 import { Router } from "@angular/router";
-
-import { 
-	AuthenticationRequestDTO, 
-	AuthenticationResourceService, 
-	TokenValidationRequestDTO, 
-	TokenRefreshRequestDTO } from "../../openapi";
 	
 import { 
 	FormGroup, 
@@ -17,6 +11,8 @@ import {
 	FormsModule, 
 	ReactiveFormsModule, 
 	Validators } from '@angular/forms';
+import { AuthService } from "../auth/auth.service";
+import { Subscription } from "rxjs";
 
 
 @Component({
@@ -34,39 +30,10 @@ import {
 export class LoginComponent {
 
 	loginForm: FormGroup;
+	subscriptions: Subscription[] = [];
 
-	constructor(private router: Router, private authenticationService: AuthenticationResourceService) {
-
-		if (typeof window !== 'undefined') {
-			let localStorageToken = localStorage.getItem('sessionToken');
-			let localStorageRefreshToken = localStorage.getItem('refreshSessionToken');
-
-				if (localStorageToken !== null) {
-							
-					let tokenValidationRequest: TokenValidationRequestDTO = {
-						token: localStorageToken
-					}
-
-					authenticationService.apiAuthenticationTokenValidatePost(tokenValidationRequest).subscribe(response => {
-							this.router.navigate(['']);
-					}, error => {
-							console.log("Local storage token not valid, proceeding to login page");
-					})
-							
-					} else if (localStorageRefreshToken !== null) {
-
-						let tokenRefreshRequest: TokenRefreshRequestDTO = {
-							refreshToken: localStorageRefreshToken
-						}
-
-						authenticationService.apiAuthenticationTokenRefreshPost(tokenRefreshRequest).subscribe(response => {
-							localStorage.setItem('sessionToken', response.token);
-							this.router.navigate(['']);
-						}, error => {
-							console.log("Error while refreshing session token with local storage refresh token, proceeding to login page")
-						})
-					} 
-		}
+	constructor(private router: Router, private authService: AuthService) {
+			
 			
 		this.loginForm = new FormGroup({
 			'username': new FormControl('', Validators.required),
@@ -77,25 +44,29 @@ export class LoginComponent {
 	hidePassword = true;
 	colorControl = new FormControl('primary' as ThemePalette);
 
-	login() {
-			
-		let loginRequest: AuthenticationRequestDTO = {
-			username: this.loginForm.value.username,
-			password: this.loginForm.value.password
-		};
+	onSubmit() {
 
-		this.authenticationService.apiAuthenticationTokenRequestPost(loginRequest).subscribe(response => {
-				
-			this.saveTokenOnLocalStorage(response.token, response.refreshToken);
+		const subscription = this.authService.login(this.loginForm.value.username, this.loginForm.value.password).subscribe({
+			next: response => {
+				this.saveTokenOnLocalStorage(response.token, response.refreshToken);
+			  console.log("Login successful, tokens are stored");
+			  this.router.navigate(['/store']);
+			},
+			error: error => {
+			  console.log("Login failed");
+				//TODO: handle login failed: maybe with a popup?
+			}
+		});
 
-			this.router.navigate(['']);
-		}, error => {
-			console.error('Login failed', error);
-		})
+		this.subscriptions.push(subscription);
 	}
 
 	saveTokenOnLocalStorage(token: string, refreshToken: string) {
-			localStorage.setItem('sessionToken', token);
-			localStorage.setItem('refreshSessionToken', refreshToken)
+		localStorage.setItem('sessionToken', token);
+		localStorage.setItem('refreshSessionToken', refreshToken)
+	}
+
+	onDestroy() {
+		this.subscriptions.forEach(subscription => subscription.unsubscribe());
 	}
 }
