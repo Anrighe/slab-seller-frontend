@@ -106,14 +106,44 @@ paths:
           description: Internal Server Error
         "204":
           description: User password successfully updated
-  /product/fetch:
+  /products/availability:
     get:
       tags:
       - Product Resource
-      summary: Returns a list of available slabs
-      description: "Returns all the available slabs. The customer client must prove\
+      summary: Returns all the available slabs
+      description: "Returns a list containing all available slabs (note: for product\
+        \ types only fetchProductsType will be faster) The customer client must prove\
         \ it was able to successfully login by validating its token.The header of\
         \ the request must include a parameter \"Authorization\" with the following\
+        \ value type: \"Bearer JWT_TOKEN\""
+      responses:
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not found
+        "500":
+          description: Internal Server Error
+        "200":
+          description: List of products successfully returned
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SlabDTO'
+  /products/type:
+    get:
+      tags:
+      - Product Resource
+      summary: Returns a list of all types of slabs
+      description: "Fetches all types of slabs (note: does not return availability,\
+        \ for that use fetchProductsTypeAndAvailability). The customer client must\
+        \ prove it was able to successfully login by validating its token.The header\
+        \ of the request must include a parameter \"Authorization\" with the following\
         \ value type: \"Bearer JWT_TOKEN\""
       responses:
         "400":
@@ -159,6 +189,8 @@ components:
           type: integer
         height:
           format: int32
+          type: integer
+        priceId:
           type: integer
     TokenRefreshRequestDTO:
       type: object
