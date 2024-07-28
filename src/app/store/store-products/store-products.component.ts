@@ -14,5 +14,6 @@ import { StorePaginatorComponent } from "../store-paginator/store-paginator.comp
 })
 export class StoreProductsComponent {
 
+    //TODO: implement logic here to show available products
     products = Array.from({length: 30}, (_, i) => i);
 }

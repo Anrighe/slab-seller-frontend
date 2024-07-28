@@ -4,17 +4,25 @@
       <mat-form-field class="w-100 form-font" appearance="outline" color="accent">
         <mat-label class="text-light">Username</mat-label>
         <input matInput class="text-light" formControlName="username">
+        @if (loginForm.invalid) {
+          <mat-error>{{passwordErrorMessage()}}</mat-error>
+        }
       </mat-form-field>
     </div>
     <div class="form-group">
-      <mat-form-field class="w-100 form-font mat-form-field-appearance-outline" appearance="outline" color="accent" >
+      <mat-form-field class="w-100 form-font mat-form-field-appearance-outline" appearance="outline" color="accent">
         <mat-label class="text-light">Password</mat-label>
         <input matInput [type]="'password'" class="text-light" formControlName="password">
-        
+        @if (loginForm.invalid) {
+          <mat-error>{{passwordErrorMessage()}}</mat-error>
+        }
       </mat-form-field>
     </div>
+    <div *ngIf="generalErrorMessage()" class="error-message">
+      <mat-error>{{generalErrorMessage()}}</mat-error>
+    </div>
     <div align="end">
-      <button mat-raised-button color="warn w-100" style="background-color: #460017;">Login</button>
+      <button mat-raised-button [disabled]="loginForm.get('username')?.value === '' || loginForm.get('password')?.value === ''" color="warn w-100" style="background-color: #460017;">Login</button>
     </div>
   </form>
   <div>
@@ -28,8 +36,3 @@
 
   </div>
 </div>
-
-
-
-
-

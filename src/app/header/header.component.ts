@@ -7,7 +7,7 @@ import { MenuComponent } from "./menu/menu.component";
 import { LogoTitleComponent } from "./logo-title/logo-title.component";
 import { userInfo } from "os";
 import { SectionsComponent } from "./sections/sections.component";
-import { ActivatedRoute, NavigationEnd, Router, RouterModule, RouterStateSnapshot } from "@angular/router";
+import { ActivatedRoute, ActivatedRouteSnapshot, NavigationEnd, Router, RouterModule, RouterStateSnapshot, UrlTree } from "@angular/router";
 import { NgFor, NgIf } from "@angular/common";
 import { Subscription } from "rxjs";
 import { Sections, USER_SECTIONS } from "../commons/sections";
@@ -22,25 +22,24 @@ import { Sections, USER_SECTIONS } from "../commons/sections";
 })
 export class HeaderComponent {
 
-  userAuthenticated = false;
+  userAuthenticated: Boolean = false;
   subscriptions: Subscription[] = [];
   section: Sections[] = USER_SECTIONS;
-  
-  constructor(private authService: AuthService, private router: Router) {
 
+  constructor(private authService: AuthService, private router: Router) {
+    
     const subscription = this.authService.getUserAuthenticatedUI().subscribe(
       (isAuthenticated) => {
+        console.log("setting userAuthenticated to: ", isAuthenticated)
         this.userAuthenticated = isAuthenticated;
       }
     );
-  }
-
+    authService.isLocalStorageTokenValid();
     
-
-
+    this.subscriptions.push(subscription);
+  }
 
   onDestroy() {
     this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
-
 }

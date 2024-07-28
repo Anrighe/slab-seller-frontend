@@ -50,7 +50,7 @@ export class AuthService {
 
 			let localStorageToken = localStorage.getItem('sessionToken');
 			//let localStorageRefreshToken = localStorage.getItem('refreshSessionToken'); //TODO: do I want to check if the refresh token is valid by requesting a new token from here?
-			
+
 			if (localStorageToken !== null) {
 				const tokenValidationRequest: TokenValidationRequestDTO = { token: localStorageToken };
 					try {
@@ -58,16 +58,16 @@ export class AuthService {
 							this.authenticationService.apiAuthenticationTokenValidatePost(tokenValidationRequest)
 						);
 						console.log("Response from local storage token validation, tokenValid:", response.tokenValid);
+						this.userAuthenticatedSubject.next(true);
 						return response.tokenValid;
 					} catch (error) {
 							console.log("Error during local storage token validation", error);
+							this.userAuthenticatedSubject.next(false);
 							return false;
 					}
 			}
 		}
-
 		return false;
-
 	}
 
 	saveTokensOnLocalStorage(token: string, refreshToken: string) {
