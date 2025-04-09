@@ -14,11 +14,14 @@ import { StoreProductsComponent } from './store/store-products/store-products.co
 import { HttpClientModule } from '@angular/common/http';
 import { BASE_PATH } from '../openapi';
 
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    
+
   ],
   imports: [
     BrowserModule,
@@ -34,7 +37,12 @@ import { BASE_PATH } from '../openapi';
   providers: [
     provideClientHydration(),
     provideAnimationsAsync(),
-    { provide: BASE_PATH, useValue: 'http://localhost:8081' }
+    { provide: BASE_PATH, useValue: 'http://localhost:8081' },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })
