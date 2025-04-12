@@ -1,4 +1,4 @@
-import { NgFor } from "@angular/common";
+import {NgFor, NgOptimizedImage} from "@angular/common";
 import { Component } from "@angular/core";
 import { StorePaginatorComponent } from "../store-paginator/store-paginator.component";
 import {ApiModule, AuthenticationResourceService, ProductResourceService, SlabDTO} from "../../../openapi";
@@ -13,10 +13,10 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
     templateUrl: './store-products.component.html',
     styleUrls: ['./store-products.component.scss'],
     standalone: true,
-    imports: [
-        NgFor,
-        StorePaginatorComponent,
-    ]
+  imports: [
+    NgFor,
+    StorePaginatorComponent,
+  ]
 })
 export class StoreProductsComponent {
   private subscriptions: Subscription[] = [];

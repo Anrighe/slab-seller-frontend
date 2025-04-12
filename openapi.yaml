@@ -192,6 +192,8 @@ components:
           type: integer
         priceId:
           type: integer
+        imagePath:
+          type: string
     TokenRefreshRequestDTO:
       type: object
       properties:
