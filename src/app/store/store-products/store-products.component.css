@@ -1,0 +1,5 @@
+.card-product-img {
+  max-width: 400px;
+  max-height: 175px;
+  object-fit: none;
+}

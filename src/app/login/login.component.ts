@@ -7,12 +7,12 @@ import { Router } from "@angular/router";
 import { CommonModule } from "@angular/common";
 import { merge } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-	
-import { 
-	FormGroup, 
-	FormControl, 
-	FormsModule, 
-	ReactiveFormsModule, 
+
+import {
+	FormGroup,
+	FormControl,
+	FormsModule,
+	ReactiveFormsModule,
 	Validators } from '@angular/forms';
 import { AuthService } from "../auth/auth.service";
 import { Subscription } from "rxjs";
@@ -41,7 +41,7 @@ export class LoginComponent {
 	generalErrorMessage = signal('');
 
 	constructor(private router: Router, private authService: AuthService) {
-			
+
 		this.loginForm = new FormGroup({
 			'username': new FormControl('', Validators.required),
 			'password': new FormControl('', Validators.required)
@@ -50,7 +50,7 @@ export class LoginComponent {
 		merge(this.loginForm.statusChanges, this.loginForm.valueChanges)
       .pipe(takeUntilDestroyed())
       .subscribe(() => this.updateErrorMessage());
-		
+
 	}
 
 	hidePassword = true;
@@ -65,7 +65,7 @@ export class LoginComponent {
 			},
 			error: error => {
 			  console.log("Login failed");
-				
+
 				if (error.status === 401) {
 					this.generalErrorMessage.set('Invalid credentials');
 				} else {
@@ -79,7 +79,7 @@ export class LoginComponent {
 
 	saveTokenOnLocalStorage(token: string, refreshToken: string) {
 		localStorage.setItem('sessionToken', token);
-		localStorage.setItem('refreshSessionToken', refreshToken)
+		localStorage.setItem('refreshToken', refreshToken)
 	}
 
 	onDestroy() {

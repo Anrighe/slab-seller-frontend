@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 /**
  * Used to add an Authorization value in the header of each request.
- *  If the sessionToken is found the Authentication value will contain the jwt token for the user's session
+ *  If the sessionToken is found the Authentication value will contain the jwt session token for the user's session
  */
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {

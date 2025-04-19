@@ -12,18 +12,20 @@ export class AuthGuard {
 		const isAuthenticated = await this.authService.isLocalStorageTokenValid();
 
 		if (isAuthenticated) {
+
 			if (state.url === '/login') {
-				this.router.navigate(['/store']);
 				return this.router.createUrlTree(['/store']);
-			} 
+			}
+
 			return true;
 		} else {
-			if (state.url !== '/login') {
-				this.router.navigate(['/login']);
-				return false
-			} else {
-				return true;
-			}
-		}	
+
+      if (state.url === '/login')
+        return true;
+
+      return false;
+      // TODO: check why using return this.router.createUrlTree(['/login']) here makes the login screen appears briefly before the store at each requests
+		}
+
 	}
 }

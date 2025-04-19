@@ -8,26 +8,26 @@ export class TokenService {
   constructor() { }
 
   saveToken(token: string): void {
-    localStorage.setItem('jwtToken', token);
+    localStorage.setItem('sessionToken', token);
   }
 
   getToken(): string | null {
-    return localStorage.getItem('jwtToken');
+    return localStorage.getItem('sessionToken');
   }
 
   removeToken(): void {
-    localStorage.removeItem('jwtToken');
+    localStorage.removeItem('sessionToken');
   }
 
   saveRefreshToken(token: string): void {
     localStorage.setItem('refreshToken', token);
   }
 
-    getRefreshToken(): string | null {
-        return localStorage.getItem('refreshToken');
-    }
+  getRefreshToken(): string | null {
+      return localStorage.getItem('refreshToken');
+  }
 
-    removeRefreshToken(): void {
-        localStorage.removeItem('refreshToken');
-    }
+  removeRefreshToken(): void {
+      localStorage.removeItem('refreshToken');
+  }
 }

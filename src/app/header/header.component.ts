@@ -27,15 +27,14 @@ export class HeaderComponent {
   section: Sections[] = USER_SECTIONS;
 
   constructor(private authService: AuthService, private router: Router) {
-    
+
     const subscription = this.authService.getUserAuthenticatedUI().subscribe(
       (isAuthenticated) => {
-        console.log("setting userAuthenticated to: ", isAuthenticated)
+        //console.log("setting userAuthenticated to: ", isAuthenticated)
         this.userAuthenticated = isAuthenticated;
       }
     );
-    authService.isLocalStorageTokenValid();
-    
+
     this.subscriptions.push(subscription);
   }
 
