@@ -1,8 +1,7 @@
 import { Component, signal } from "@angular/core";
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
-import { MatButton, MatButtonModule } from "@angular/material/button";
-import { ThemePalette } from "@angular/material/core";
+import { MatButtonModule } from "@angular/material/button";
 import { Router } from "@angular/router";
 import { CommonModule } from "@angular/common";
 import { merge } from 'rxjs';
@@ -11,11 +10,11 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
 	FormGroup,
 	FormControl,
-	FormsModule,
 	ReactiveFormsModule,
 	Validators } from '@angular/forms';
 import { AuthService } from "../auth/auth.service";
 import { Subscription } from "rxjs";
+import {MatDialogContent} from "@angular/material/dialog";
 
 
 @Component({
@@ -23,13 +22,14 @@ import { Subscription } from "rxjs";
 	templateUrl: './login.component.html',
 	styleUrls: ['./login.component.css'],
 	standalone : true,
-	imports: [
-		MatInputModule,
-		MatIconModule,
-		MatButtonModule,
-		ReactiveFormsModule,
-		CommonModule
-	]
+  imports: [
+    MatInputModule,
+    MatIconModule,
+    MatButtonModule,
+    ReactiveFormsModule,
+    CommonModule,
+    MatDialogContent
+  ]
 })
 export class LoginComponent {
 
@@ -52,9 +52,6 @@ export class LoginComponent {
       .subscribe(() => this.updateErrorMessage());
 
 	}
-
-	hidePassword = true;
-	colorControl = new FormControl('primary' as ThemePalette);
 
 	onSubmit() {
 		const subscription = this.authService.login(this.loginForm.value.username, this.loginForm.value.password).subscribe({

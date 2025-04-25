@@ -1,26 +1,36 @@
-<div class="sidenav-content" style="display: flex; flex-direction: column;">
+<div
+  class="sidenav-content product-list"
+  infiniteScroll
+  [infiniteScrollDistance]="2"
+  [infiniteScrollThrottle]="150"
+  (scrolled)="loadMore()"
+  style="display: flex; flex-direction: column;" >
 
-		<div class="row row-cols-auto row-cols-md-3 row-cols-xl-5 justify-content-center ml-4 mr-4 mt-4" style="padding-left: 100px; padding-right: 100px;">
-			<div class="col mb-2" *ngFor="let product of products" >
-				<div class="card h-100">
+  <div class="row row-cols-auto row-cols-md-3 row-cols-xl-5 justify-content-center ml-4 mr-4 mt-4" style="padding-left: 100px; padding-right: 100px;">
+    <div class="col mb-2" *ngFor="let product of products; trackBy: trackByProductId;">
+      <div class="card h-100">
 
-          <!--https://dummyimage.com/450x300/dee2e6/6c757d.jpg-->
-					<img class="card-img-top card-product-img" src="{{ product.imagePath }}" alt="...">
+        <!--https://dummyimage.com/450x300/dee2e6/6c757d.jpg-->
+        <img class="card-img-top card-product-img" src="{{ product.imagePath }}" alt="Product image">
 
-					<div class="card-body">
-						<div class="text-center">
-							<h6 class="fw-bolder">{{ product.collection || 'N/A' }} - {{ product.color || 'N/A' }}</h6>
+        <div class="card-body">
+          <div class="text-center">
+            <h6 class="fw-bolder">{{ product.collection || 'N/A' }} - {{ product.color || 'N/A' }}</h6>
 
-							€420.00
-						</div>
-					</div>
+            €420.00
+          </div>
+        </div>
 
-					<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-						<div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<app-store-paginator></app-store-paginator>
-	</div>
+        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+          <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Optional loading indicator -->
+<div *ngIf="loading" class="loading-indicator">
+  Loading more products...
+</div>
 

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { LoginComponent } from './login.component';
+import { RegisterComponent } from './register.component';
 import { ApiModule } from "../../openapi";
 
 
@@ -11,7 +11,7 @@ import { ApiModule } from "../../openapi";
     CommonModule,
     ApiModule,
     RouterModule.forChild([
-      { path: '', component: LoginComponent }
+      { path: '', component: RegisterComponent }
     ])
   ]
 })

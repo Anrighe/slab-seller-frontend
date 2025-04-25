@@ -1,10 +1,7 @@
 <mat-toolbar #header color="accent" class="header">
-    
-    <div style="display: flex; justify-content: flex-start; align-items: center;">
-        <app-menu style="padding-right: 10px;" [hidden]="!userAuthenticated"></app-menu>
-        <app-logo-title></app-logo-title>
-    </div>
-    
-    <app-sections [hidden]="!userAuthenticated" style="height:100%;"></app-sections>
-    
+
+  <app-logo-title ></app-logo-title>
+
+  <app-sections [hidden]="!userAuthenticated" style="height:100%;"></app-sections>
+
 </mat-toolbar>

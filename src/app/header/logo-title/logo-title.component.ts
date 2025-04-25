@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import {Component, inject} from "@angular/core";
 import { Router } from "@angular/router";
 
 
@@ -9,7 +9,8 @@ import { Router } from "@angular/router";
   standalone : true,
 })
 export class LogoTitleComponent {
-  constructor(private router: Router) { }
+
+  private router: Router = inject(Router);
 
   logoFilename: String = 'logo.jpg';
   titleFilename: String = 'title.png';
@@ -17,6 +18,6 @@ export class LogoTitleComponent {
   redirectToHomePage() {
     this.router.navigate(['']);
   }
-  
+
 }
 

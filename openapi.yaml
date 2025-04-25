@@ -145,6 +145,19 @@ paths:
         \ prove it was able to successfully login by validating its token.The header\
         \ of the request must include a parameter \"Authorization\" with the following\
         \ value type: \"Bearer JWT_TOKEN\""
+      parameters:
+      - name: limit
+        in: query
+        schema:
+          format: int32
+          default: 20
+          type: integer
+      - name: offset
+        in: query
+        schema:
+          format: int32
+          default: 0
+          type: integer
       responses:
         "400":
           description: Bad Request
@@ -216,10 +229,6 @@ components:
         firstName:
           type: string
         lastName:
-          type: string
-        enabled:
-          type: boolean
-        token:
           type: string
     UserInfoUpdateRequestDTO:
       type: object

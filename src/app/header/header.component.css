@@ -1,9 +1,7 @@
 .header {
-    
-    flex: 1 1 auto; 
-    display: flex; 
-    justify-content: space-between; 
+    flex: 1 1 auto;
+    display: flex;
+    justify-content: space-between;
     max-height: 13vh;
-    /*
-    background-color: #460017;*/
 }
+

@@ -3,3 +3,10 @@
   max-height: 175px;
   object-fit: none;
 }
+
+.loading-indicator {
+  text-align: center;
+  padding: 10px;
+  font-size: 1.2em;
+  color: #007bff;
+}

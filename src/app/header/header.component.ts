@@ -1,13 +1,10 @@
-import { Component } from "@angular/core";
+import {Component, inject} from "@angular/core";
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { AuthService } from '../auth/auth.service';
-import { MenuComponent } from "./menu/menu.component";
 import { LogoTitleComponent } from "./logo-title/logo-title.component";
-import { userInfo } from "os";
 import { SectionsComponent } from "./sections/sections.component";
-import { ActivatedRoute, ActivatedRouteSnapshot, NavigationEnd, Router, RouterModule, RouterStateSnapshot, UrlTree } from "@angular/router";
 import { NgFor, NgIf } from "@angular/common";
 import { Subscription } from "rxjs";
 import { Sections, USER_SECTIONS } from "../commons/sections";
@@ -18,7 +15,7 @@ import { Sections, USER_SECTIONS } from "../commons/sections";
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
   standalone: true,
-  imports: [MatToolbarModule, MatButtonModule, MatIconModule, MenuComponent, LogoTitleComponent, SectionsComponent, NgIf, NgFor],
+  imports: [MatToolbarModule, MatButtonModule, MatIconModule, LogoTitleComponent, SectionsComponent],
 })
 export class HeaderComponent {
 
@@ -26,11 +23,11 @@ export class HeaderComponent {
   subscriptions: Subscription[] = [];
   section: Sections[] = USER_SECTIONS;
 
-  constructor(private authService: AuthService, private router: Router) {
+  private authService: AuthService = inject(AuthService);
 
+  constructor() {
     const subscription = this.authService.getUserAuthenticatedUI().subscribe(
       (isAuthenticated) => {
-        //console.log("setting userAuthenticated to: ", isAuthenticated)
         this.userAuthenticated = isAuthenticated;
       }
     );
