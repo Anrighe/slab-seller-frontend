@@ -1,18 +1,21 @@
-import {inject, Injectable} from "@angular/core";
+import { inject, Injectable } from "@angular/core";
 
 import {
 	AuthenticationRequestDTO,
 	AuthenticationResourceService,
 	TokenValidationRequestDTO } from "../../openapi";
 import { BehaviorSubject, Observable, Subscription, catchError, firstValueFrom, tap } from "rxjs";
+import {TokenService} from "./token.service";
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
+
 
 	private subscriptions: Subscription[] = [];
 	private userAuthenticatedSubject = new BehaviorSubject<boolean>(false); // Used to hide parts of the UI
 
   private authenticationService: AuthenticationResourceService = inject(AuthenticationResourceService);
+  private tokenService: TokenService = inject(TokenService);
 
   /**
    * Handles the login process by sending the user's credentials to the authentication service.
@@ -64,7 +67,14 @@ export class AuthService {
 							this.authenticationService.apiAuthenticationTokenValidatePost(tokenValidationRequest)
 						);
 						console.log("Response from local storage token validation, tokenValid:", response.tokenValid);
-						this.userAuthenticatedSubject.next(true);
+            this.userAuthenticatedSubject.next(response.tokenValid);
+
+            // If the token in the local storage is invalid, remove it
+            if (!response.tokenValid) {
+              this.tokenService.removeToken();
+              this.tokenService.removeRefreshToken();
+            }
+
 						return response.tokenValid;
 					} catch (error) {
 							console.log("Error during local storage token validation", error);
