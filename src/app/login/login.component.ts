@@ -2,7 +2,7 @@ import { Component, signal } from "@angular/core";
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from "@angular/material/button";
-import { Router } from "@angular/router";
+import {Router, RouterLink} from "@angular/router";
 import { CommonModule } from "@angular/common";
 import { merge } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -28,7 +28,8 @@ import {MatDialogContent} from "@angular/material/dialog";
     MatButtonModule,
     ReactiveFormsModule,
     CommonModule,
-    MatDialogContent
+    MatDialogContent,
+    RouterLink
   ]
 })
 export class LoginComponent {

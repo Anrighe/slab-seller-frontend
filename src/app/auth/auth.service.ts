@@ -31,7 +31,7 @@ export class AuthService {
 			password: password
 		};
 
-		return this.authenticationService.apiAuthenticationTokenRequestPost(loginRequest).pipe(
+		return this.authenticationService.apiV1AuthenticationTokenRequestPost(loginRequest).pipe(
 			tap(response => {
         this.saveTokensOnLocalStorage(response.token, response.refreshToken);
 				console.log("Credentials successfully validated, deploying token...");
@@ -64,7 +64,7 @@ export class AuthService {
 				const tokenValidationRequest: TokenValidationRequestDTO = { token: localStorageToken };
 					try {
 						const response = await firstValueFrom(
-							this.authenticationService.apiAuthenticationTokenValidatePost(tokenValidationRequest)
+							this.authenticationService.apiV1AuthenticationTokenValidatePost(tokenValidationRequest)
 						);
 						console.log("Response from local storage token validation, tokenValid:", response.tokenValid);
             this.userAuthenticatedSubject.next(response.tokenValid);

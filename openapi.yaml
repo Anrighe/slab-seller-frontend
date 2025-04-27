@@ -4,7 +4,7 @@ info:
   title: slab-seller-backend API
   version: 1.0.0-SNAPSHOT
 paths:
-  /api/authentication/token/refresh:
+  /api/v1/authentication/token/refresh:
     post:
       tags:
       - Authentication Resource
@@ -16,7 +16,7 @@ paths:
       responses:
         "200":
           description: OK
-  /api/authentication/token/request:
+  /api/v1/authentication/token/request:
     post:
       tags:
       - Authentication Resource
@@ -28,7 +28,7 @@ paths:
       responses:
         "200":
           description: OK
-  /api/authentication/token/validate:
+  /api/v1/authentication/token/validate:
     post:
       tags:
       - Authentication Resource
@@ -40,15 +40,15 @@ paths:
       responses:
         "200":
           description: OK
-  /api/user/create:
+  /api/v1/email/send:
     post:
       tags:
-      - User Resource
+      - Email Resource
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/UserCreationRequestDTO'
+              $ref: '#/components/schemas/PasswordRecoveryRequestDTO'
       responses:
         "400":
           description: Bad Request
@@ -60,53 +60,9 @@ paths:
           description: Not found
         "500":
           description: Internal Server Error
-        "201":
-          description: User created successfully
-  /api/user/update/info:
-    put:
-      tags:
-      - User Resource
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/UserInfoUpdateRequestDTO'
-      responses:
-        "400":
-          description: Bad Request
-        "401":
-          description: Unauthorized
-        "403":
-          description: Forbidden
-        "404":
-          description: Not found
-        "500":
-          description: Internal Server Error
-        "204":
-          description: User info successfully updated
-  /api/user/update/password:
-    put:
-      tags:
-      - User Resource
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/UserPasswordUpdateRequestDTO'
-      responses:
-        "400":
-          description: Bad Request
-        "401":
-          description: Unauthorized
-        "403":
-          description: Forbidden
-        "404":
-          description: Not found
-        "500":
-          description: Internal Server Error
-        "204":
-          description: User password successfully updated
-  /products/availability:
+        "202":
+          description: Email sent successfully
+  /api/v1/products/availability:
     get:
       tags:
       - Product Resource
@@ -135,7 +91,7 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/SlabDTO'
-  /products/type:
+  /api/v1/products/type:
     get:
       tags:
       - Product Resource
@@ -177,6 +133,72 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/SlabDTO'
+  /api/v1/user/create:
+    post:
+      tags:
+      - User Resource
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserCreationRequestDTO'
+      responses:
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not found
+        "500":
+          description: Internal Server Error
+        "201":
+          description: User created successfully
+  /api/v1/user/update/info:
+    put:
+      tags:
+      - User Resource
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserInfoUpdateRequestDTO'
+      responses:
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not found
+        "500":
+          description: Internal Server Error
+        "204":
+          description: User info successfully updated
+  /api/v1/user/update/password:
+    put:
+      tags:
+      - User Resource
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserPasswordUpdateRequestDTO'
+      responses:
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not found
+        "500":
+          description: Internal Server Error
+        "204":
+          description: User password successfully updated
 components:
   schemas:
     AuthenticationRequestDTO:
@@ -185,6 +207,11 @@ components:
         username:
           type: string
         password:
+          type: string
+    PasswordRecoveryRequestDTO:
+      type: object
+      properties:
+        email:
           type: string
     SlabDTO:
       type: object

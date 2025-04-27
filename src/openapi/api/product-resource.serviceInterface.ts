@@ -28,7 +28,7 @@ export interface ProductResourceServiceInterface {
      * Returns all the available slabs
      * Returns a list containing all available slabs (note: for product types only fetchProductsType will be faster) The customer client must prove it was able to successfully login by validating its token.The header of the request must include a parameter \&quot;Authorization\&quot; with the following value type: \&quot;Bearer JWT_TOKEN\&quot;
      */
-    productsAvailabilityGet(extraHttpRequestParams?: any): Observable<Array<SlabDTO>>;
+    apiV1ProductsAvailabilityGet(extraHttpRequestParams?: any): Observable<Array<SlabDTO>>;
 
     /**
      * Returns a list of all types of slabs
@@ -36,6 +36,6 @@ export interface ProductResourceServiceInterface {
      * @param limit 
      * @param offset 
      */
-    productsTypeGet(limit?: number, offset?: number, extraHttpRequestParams?: any): Observable<Array<SlabDTO>>;
+    apiV1ProductsTypeGet(limit?: number, offset?: number, extraHttpRequestParams?: any): Observable<Array<SlabDTO>>;
 
 }

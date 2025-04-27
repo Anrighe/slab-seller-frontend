@@ -66,7 +66,7 @@ export class StoreProductsComponent {
       transferCache: false,
     };
 
-    const subscription = this.productResourceService.productsTypeGet(
+    const subscription = this.productResourceService.apiV1ProductsTypeGet(
       this.limit,
       this.offset,
       "body",
