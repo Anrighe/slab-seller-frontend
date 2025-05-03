@@ -95,6 +95,8 @@ export class EmailResourceService implements EmailResourceServiceInterface {
     }
 
     /**
+     * Requests the process for the password recovery
+     * Logs the requests and if eligible (user exists and it\&#39;s active, hasn\&#39;t recently sent any other requests) sends the password recovery email to the specified user. Completing the procedure with a 200 return code, does not guarantee an email has been actually sent.
      * @param passwordRecoveryRequestDTO 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.

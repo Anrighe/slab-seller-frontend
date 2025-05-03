@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 import { AuthGuard } from './auth/auth.guard';
+import {PasswordRecoveryModule} from "./password-recovery/password-recovery.module";
 
 
 const routes: Routes = [
@@ -22,7 +23,12 @@ const routes: Routes = [
   },
   {
     path: 'register',
-    loadChildren: () => import('./register/register.module').then(m => m.LoginModule),
+    loadChildren: () => import('./register/register.module').then(m => m.RegisterModule),
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'passwordrecovery',
+    loadChildren: () => import('./password-recovery/password-recovery.module').then(m => m.PasswordRecoveryModule),
     canActivate: [AuthGuard]
   },
   {

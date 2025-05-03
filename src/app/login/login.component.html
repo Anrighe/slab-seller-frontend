@@ -1,4 +1,5 @@
 <div class="container center-container login-form" mat-dialog-content>
+
   <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
       <mat-form-field class="w-100 form-font" appearance="outline" color="accent">
@@ -9,6 +10,7 @@
         }
       </mat-form-field>
     </div>
+
     <div class="form-group">
       <mat-form-field class="w-100 form-font mat-form-field-appearance-outline" appearance="outline" color="accent">
         <mat-label class="text-light">Password</mat-label>
@@ -18,21 +20,29 @@
         }
       </mat-form-field>
     </div>
-    <div *ngIf="generalErrorMessage()" class="error-message">
+
+    <div *ngIf="generalErrorMessage()">
       <mat-error>{{generalErrorMessage()}}</mat-error>
     </div>
-    <div align="end">
-      <button mat-raised-button [disabled]="loginForm.get('username')?.value === '' || loginForm.get('password')?.value === ''" color="warn w-100" style="background-color: #460017;">Login</button>
+
+    <div class="text-center">
+      <button mat-raised-button [disabled]="loginForm.get('username')?.value === '' || loginForm.get('password')?.value === ''"
+              color="warn w-100"
+              style="background-color: #460017;">
+        Login
+      </button>
     </div>
   </form>
-  <div>
+
   <br>
-  <span class="text-light"><a href="#">Forgot your password?</a></span>
-
+  <div class="text-start">
+    <span class="text-light"><a routerLink="/passwordrecovery">Forgot your password?</a></span>
   </div>
-  <hr style="color: white;">
-  <div align="center">
+
+  <hr class="border-light">
+
+  <div class="text-center">
     <span class="text-light">Don't have an account? <a routerLink="/register">Create one!</a></span>
-
   </div>
+
 </div>

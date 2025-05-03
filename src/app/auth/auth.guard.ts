@@ -41,12 +41,12 @@ export class AuthGuard {
     const isAuthenticated = await this.authService.isLocalStorageTokenValid();
 
     if (isAuthenticated) {
-      if (url === '/login' || url === '/register') {
+      if (url === '/login' || url === '/register' || url === '/passwordrecovery') {
         return this.router.createUrlTree(['/store']);
       }
       return true;
     } else {
-      return url === '/login' || url === '/register';
+      return url === '/login' || url === '/register' || url === '/passwordrecovery';
     }
   }
 }

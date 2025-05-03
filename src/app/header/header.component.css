@@ -5,3 +5,7 @@
     max-height: 13vh;
 }
 
+.mat-toolbar.mat-primary {
+  background: #70042c;
+}
+

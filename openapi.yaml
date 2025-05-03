@@ -44,6 +44,11 @@ paths:
     post:
       tags:
       - Email Resource
+      summary: Requests the process for the password recovery
+      description: "Logs the requests and if eligible (user exists and it's active,\
+        \ hasn't recently sent any other requests) sends the password recovery email\
+        \ to the specified user. Completing the procedure with a 200 return code,\
+        \ does not guarantee an email has been actually sent."
       requestBody:
         content:
           application/json:
@@ -60,8 +65,8 @@ paths:
           description: Not found
         "500":
           description: Internal Server Error
-        "202":
-          description: Email sent successfully
+        "200":
+          description: Password recovery request completed
   /api/v1/products/availability:
     get:
       tags:

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { RegisterComponent } from './register.component';
+import { PasswordRecoveryComponent } from './password-recovery.component';
 import { ApiModule } from "../../openapi";
 
 
@@ -11,10 +11,10 @@ import { ApiModule } from "../../openapi";
     CommonModule,
     ApiModule,
     RouterModule.forChild([
-      { path: '', component: RegisterComponent }
+      { path: '', component: PasswordRecoveryComponent }
     ])
   ]
 })
-export class RegisterModule {
+export class PasswordRecoveryModule {
 
 }

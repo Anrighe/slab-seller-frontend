@@ -1,9 +1,9 @@
 html, body { height: 100%; }
 
-body { 
-    margin: 0; 
-    font-family: Roboto, "Helvetica Neue", sans-serif; 
-    background-color: #181a1b !important; 
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    background-color: #181a1b !important;
     overflow-y: hidden;
 }
 
@@ -11,3 +11,6 @@ body {
     background-color: #181a1b !important;
 }
 
+.button-bg {
+  background-color: #460017 !important;
+}
