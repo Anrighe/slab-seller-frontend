@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 import { AuthGuard } from './auth/auth.guard';
-import {PasswordRecoveryModule} from "./password-recovery/password-recovery.module";
 
 
 const routes: Routes = [

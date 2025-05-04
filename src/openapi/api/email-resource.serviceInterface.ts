@@ -29,6 +29,6 @@ export interface EmailResourceServiceInterface {
      * Logs the requests and if eligible (user exists and it\&#39;s active, hasn\&#39;t recently sent any other requests) sends the password recovery email to the specified user. Completing the procedure with a 200 return code, does not guarantee an email has been actually sent.
      * @param passwordRecoveryRequestDTO 
      */
-    apiV1EmailSendPost(passwordRecoveryRequestDTO?: PasswordRecoveryRequestDTO, extraHttpRequestParams?: any): Observable<{}>;
+    apiV1EmailPasswordrecoveryPost(passwordRecoveryRequestDTO?: PasswordRecoveryRequestDTO, extraHttpRequestParams?: any): Observable<{}>;
 
 }

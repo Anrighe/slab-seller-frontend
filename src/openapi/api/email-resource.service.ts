@@ -101,10 +101,10 @@ export class EmailResourceService implements EmailResourceServiceInterface {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public apiV1EmailSendPost(passwordRecoveryRequestDTO?: PasswordRecoveryRequestDTO, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<any>;
-    public apiV1EmailSendPost(passwordRecoveryRequestDTO?: PasswordRecoveryRequestDTO, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<any>>;
-    public apiV1EmailSendPost(passwordRecoveryRequestDTO?: PasswordRecoveryRequestDTO, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<any>>;
-    public apiV1EmailSendPost(passwordRecoveryRequestDTO?: PasswordRecoveryRequestDTO, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public apiV1EmailPasswordrecoveryPost(passwordRecoveryRequestDTO?: PasswordRecoveryRequestDTO, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<any>;
+    public apiV1EmailPasswordrecoveryPost(passwordRecoveryRequestDTO?: PasswordRecoveryRequestDTO, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<any>>;
+    public apiV1EmailPasswordrecoveryPost(passwordRecoveryRequestDTO?: PasswordRecoveryRequestDTO, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<any>>;
+    public apiV1EmailPasswordrecoveryPost(passwordRecoveryRequestDTO?: PasswordRecoveryRequestDTO, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<any> {
 
         let localVarHeaders = this.defaultHeaders;
 
@@ -150,7 +150,7 @@ export class EmailResourceService implements EmailResourceServiceInterface {
             }
         }
 
-        let localVarPath = `/api/v1/email/send`;
+        let localVarPath = `/api/v1/email/passwordrecovery`;
         return this.httpClient.request<any>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,

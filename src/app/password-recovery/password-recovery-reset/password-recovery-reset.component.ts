@@ -8,12 +8,12 @@ import { MatDialogContent } from "@angular/material/dialog";
 import { Router, RouterLink } from "@angular/router";
 import { merge, Subscription } from "rxjs";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
-import { EmailResourceService, PasswordRecoveryRequestDTO } from "../../openapi";
+import { EmailResourceService, PasswordRecoveryRequestDTO } from "../../../openapi";
 
 @Component({
   selector: 'app-register',
-  templateUrl: './password-recovery.component.html',
-  styleUrls: ['./password-recovery.component.css'],
+  templateUrl: './password-recovery-reset.component.html',
+  styleUrls: ['./password-recovery-reset.component.css'],
   standalone : true,
   imports: [
     MatInputModule,
@@ -25,9 +25,9 @@ import { EmailResourceService, PasswordRecoveryRequestDTO } from "../../openapi"
     RouterLink
   ]
 })
-export class PasswordRecoveryComponent {
+export class PasswordRecoveryResetComponent {
 
-  passwordRecoveryForm: FormGroup;
+  passwordResetForm: FormGroup;
   subscriptions: Subscription[] = [];
 
   emailErrorMessage = signal('');
@@ -39,34 +39,18 @@ export class PasswordRecoveryComponent {
 
   constructor() {
 
-    this.passwordRecoveryForm = new FormGroup({
-      'email': new FormControl('', [Validators.required, Validators.email])
+    this.passwordResetForm = new FormGroup({
+      'password': new FormControl('', [Validators.required, Validators.min(8)]),
+      'repeatedpassword': new FormControl('', [Validators.required, Validators.min(8)])
     });
 
-    merge(this.passwordRecoveryForm.statusChanges, this.passwordRecoveryForm.valueChanges)
+    merge(this.passwordResetForm.statusChanges, this.passwordResetForm.valueChanges)
       .pipe(takeUntilDestroyed())
       .subscribe(() => this.updateErrorMessage());
   }
 
   onSubmit() {
-    this.successMessage.set('');
-    this.generalErrorMessage.set('');
 
-    const passwordRecoveryRequestDTO: PasswordRecoveryRequestDTO = {
-      email: this.passwordRecoveryForm.value.email
-    };
-
-    console.log(passwordRecoveryRequestDTO);
-    const subscription = this.emailResourceService.apiV1EmailPasswordrecoveryPost(passwordRecoveryRequestDTO).subscribe({
-      next: () => {
-        this.successMessage.set(`Password recovery email sent to ${this.passwordRecoveryForm.value.email}`);
-      },
-      error: () => {
-        this.generalErrorMessage.set('Something went wrong, please try again later');
-      }
-    });
-
-    this.subscriptions.push(subscription);
   }
 
   onDestroy() {
@@ -74,7 +58,7 @@ export class PasswordRecoveryComponent {
   }
 
   updateErrorMessage() {
-    const emailControl = this.passwordRecoveryForm.get('email');
+    const emailControl = this.passwordResetForm.get('email');
 
     if (emailControl?.hasError('required')) {
       this.emailErrorMessage.set('You must enter an email address');

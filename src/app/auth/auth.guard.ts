@@ -1,4 +1,4 @@
-import {inject, Injectable} from "@angular/core";
+import { inject, Injectable } from "@angular/core";
 import { AuthService } from "./auth.service";
 
 import { ActivatedRouteSnapshot, Route, Router, RouterStateSnapshot, UrlSegment, UrlTree } from "@angular/router";
@@ -41,12 +41,12 @@ export class AuthGuard {
     const isAuthenticated = await this.authService.isLocalStorageTokenValid();
 
     if (isAuthenticated) {
-      if (url === '/login' || url === '/register' || url === '/passwordrecovery') {
+      if (url === '/login' || url === '/register' || url.startsWith('/passwordrecovery')) {
         return this.router.createUrlTree(['/store']);
       }
       return true;
     } else {
-      return url === '/login' || url === '/register' || url === '/passwordrecovery';
+      return url === '/login' || url === '/register' || url.startsWith('/passwordrecovery');
     }
   }
 }

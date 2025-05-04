@@ -2,16 +2,18 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { PasswordRecoveryComponent } from './password-recovery.component';
-import { ApiModule } from "../../openapi";
-
 
 @NgModule({
   declarations: [],
   imports: [
     CommonModule,
-    ApiModule,
     RouterModule.forChild([
-      { path: '', component: PasswordRecoveryComponent }
+      { path: '', component: PasswordRecoveryComponent },
+      {
+        path: 'reset',
+        loadChildren: () =>
+          import('./password-recovery-reset/password-recovery-reset.module').then(m => m.PasswordRecoveryResetModule)
+      }
     ])
   ]
 })
