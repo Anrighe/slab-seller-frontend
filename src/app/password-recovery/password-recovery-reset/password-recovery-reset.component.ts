@@ -27,10 +27,17 @@ import { EmailResourceService, PasswordRecoveryRequestDTO } from "../../../opena
 })
 export class PasswordRecoveryResetComponent {
 
+  private MINIMUM_PASSWORD_LENGTH: number = 8;
+  private MAXIMUM_PASSWORD_LENGTH: number = 50;
+
   passwordResetForm: FormGroup;
   subscriptions: Subscription[] = [];
 
-  emailErrorMessage = signal('');
+  showPassword = false;
+  showRepeatedPassword = false;
+
+  passwordErrorMessage = signal('');
+  repeatedPasswordErrorMessage = signal('');
   generalErrorMessage = signal('');
   successMessage = signal('');
 
@@ -40,17 +47,18 @@ export class PasswordRecoveryResetComponent {
   constructor() {
 
     this.passwordResetForm = new FormGroup({
-      'password': new FormControl('', [Validators.required, Validators.min(8)]),
-      'repeatedpassword': new FormControl('', [Validators.required, Validators.min(8)])
+      'password': new FormControl('', [Validators.required, Validators.minLength(this.MINIMUM_PASSWORD_LENGTH), Validators.maxLength(this.MAXIMUM_PASSWORD_LENGTH)]),
+      'repeatedpassword': new FormControl('', [Validators.required, Validators.minLength(this.MINIMUM_PASSWORD_LENGTH), Validators.maxLength(this.MAXIMUM_PASSWORD_LENGTH)])
     });
 
     merge(this.passwordResetForm.statusChanges, this.passwordResetForm.valueChanges)
       .pipe(takeUntilDestroyed())
       .subscribe(() => this.updateErrorMessage());
+
   }
 
   onSubmit() {
-
+    //TODO: make and api with KeycloakService.updateUserPassword? - also validate the parameter on the page on the backend again once called?
   }
 
   onDestroy() {
@@ -58,14 +66,28 @@ export class PasswordRecoveryResetComponent {
   }
 
   updateErrorMessage() {
-    const emailControl = this.passwordResetForm.get('email');
+    const passwordControl = this.passwordResetForm.get('password');
 
-    if (emailControl?.hasError('required')) {
-      this.emailErrorMessage.set('You must enter an email address');
-    } else if (emailControl?.hasError('email')) {
-      this.emailErrorMessage.set('You must enter a valid email address');
+    if (passwordControl?.hasError('required')) {
+      this.passwordErrorMessage.set('You must enter a password');
+    } else if (passwordControl?.hasError('minlength')) {
+      this.passwordErrorMessage.set(`Password must be at least ${this.MINIMUM_PASSWORD_LENGTH} characters long`);
+    } else if (passwordControl?.hasError('maxlength')) {
+      this.passwordErrorMessage.set(`Password can be at most ${this.MAXIMUM_PASSWORD_LENGTH} characters long`);
     } else {
-        this.emailErrorMessage.set('');
+        this.passwordErrorMessage.set('');
+    }
+
+    const repeatedPasswordControl = this.passwordResetForm.get('repeatedpassword');
+
+    if (repeatedPasswordControl?.hasError('required')) {
+      this.repeatedPasswordErrorMessage.set('You must enter a password');
+    } else if (repeatedPasswordControl?.hasError('minlength')) {
+      this.repeatedPasswordErrorMessage.set(`Password must be at least ${this.MINIMUM_PASSWORD_LENGTH} characters long`);
+    } else if (repeatedPasswordControl?.hasError('maxlength')) {
+      this.repeatedPasswordErrorMessage.set(`Password can be at most ${this.MAXIMUM_PASSWORD_LENGTH} characters long`);
+    } else {
+      this.repeatedPasswordErrorMessage.set('');
     }
   }
 
