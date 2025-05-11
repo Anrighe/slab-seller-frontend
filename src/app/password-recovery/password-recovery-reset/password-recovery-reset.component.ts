@@ -5,10 +5,15 @@ import { MatButtonModule } from "@angular/material/button";
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 import { CommonModule } from "@angular/common";
 import { MatDialogContent } from "@angular/material/dialog";
-import { Router, RouterLink } from "@angular/router";
+import { ActivatedRoute, Router, RouterLink } from "@angular/router";
 import { merge, Subscription } from "rxjs";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
-import { EmailResourceService, PasswordRecoveryRequestDTO } from "../../../openapi";
+import {
+  EmailResourceService,
+  PasswordRecoveryRequestDTO,
+  PasswordRecoveryUpdateRequestDTO,
+  UserResourceService
+} from "../../../openapi";
 
 @Component({
   selector: 'app-register',
@@ -27,22 +32,28 @@ import { EmailResourceService, PasswordRecoveryRequestDTO } from "../../../opena
 })
 export class PasswordRecoveryResetComponent {
 
+  protected token: string | null = '';
+
   private MINIMUM_PASSWORD_LENGTH: number = 8;
   private MAXIMUM_PASSWORD_LENGTH: number = 50;
 
-  passwordResetForm: FormGroup;
-  subscriptions: Subscription[] = [];
+  protected passwordResetForm: FormGroup;
+  private subscriptions: Subscription[] = [];
 
-  showPassword = false;
-  showRepeatedPassword = false;
+  protected showPassword = false;
+  protected showRepeatedPassword = false;
 
-  passwordErrorMessage = signal('');
-  repeatedPasswordErrorMessage = signal('');
-  generalErrorMessage = signal('');
-  successMessage = signal('');
+  protected passwordRecoveryRequestEmail : string = '';
 
-  private Router: Router = inject(Router);
+  protected passwordErrorMessage = signal('');
+  protected repeatedPasswordErrorMessage = signal('');
+  protected generalErrorMessage = signal('');
+  protected successMessage = signal('');
+
+  private router: Router = inject(Router);
   private emailResourceService: EmailResourceService = inject(EmailResourceService);
+  private userResourceService: UserResourceService = inject(UserResourceService);
+  private route: ActivatedRoute = inject(ActivatedRoute);
 
   constructor() {
 
@@ -55,10 +66,41 @@ export class PasswordRecoveryResetComponent {
       .pipe(takeUntilDestroyed())
       .subscribe(() => this.updateErrorMessage());
 
+    this.token = this.route.snapshot.paramMap.get('token');
+
+    if (this.token) {
+
+      const subscription = this.userResourceService.apiV1UserPasswordrecoveryEmailRequestHashGet(this.token).subscribe({
+        next: (result: any) => {
+          this.passwordRecoveryRequestEmail = result.email;
+        },
+        error: err => {
+          console.log(err);
+        }
+      });
+
+      this.subscriptions.push(subscription);
+    }
   }
 
   onSubmit() {
-    //TODO: make and api with KeycloakService.updateUserPassword? - also validate the parameter on the page on the backend again once called?
+    if (this.token && this.passwordRecoveryRequestEmail) {
+
+      const passwordRecoveryUpdateRequestDTO: PasswordRecoveryUpdateRequestDTO = {
+        passwordRecoveryRequestHashedId: this.token,
+        passwordRecoveryEmail: this.passwordRecoveryRequestEmail,
+        newPassword: this.passwordResetForm.get('password')?.value,
+        confirmPassword: this.passwordResetForm.get('repeatedpassword')?.value
+      };
+      this.userResourceService.apiV1UserPasswordrecoveryUpdatePost(passwordRecoveryUpdateRequestDTO).subscribe({
+        next: () => {
+          this.router.navigate(['login']);
+        },
+        error: err => {
+          console.log(err);
+        }
+      })
+    }
   }
 
   onDestroy() {

@@ -2,7 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Router, UrlTree } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { UserResourceService } from "../../../openapi"; // Adjust path as needed
+import { UserResourceService } from "../../../openapi";
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +19,7 @@ export class PasswordRecoveryResetGuard {
       return of(this.router.parseUrl('/login'));
     }
 
-    return this.userResourceService.apiV1UserVerifyPasswordrecoveryPost(token).pipe(
+    return this.userResourceService.apiV1UserPasswordrecoveryVerifyPost(token).pipe(
       map(() => true),
       catchError(() => of(this.router.parseUrl('/login')))
     );

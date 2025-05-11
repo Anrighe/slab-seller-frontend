@@ -158,6 +158,81 @@ paths:
           description: Internal Server Error
         "201":
           description: User created successfully
+  /api/v1/user/passwordrecovery/email/{requestHash}:
+    get:
+      tags:
+      - User Resource
+      summary: "Retrieves the email associated to the password recovery request, if\
+        \ the hash request id and the request itself are valid"
+      parameters:
+      - name: requestHash
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "400":
+          description: Bad Request
+        "401":
+          description: "Password recovery request does not exists, disabled, already\
+            \ used or expired"
+        "403":
+          description: Forbidden
+        "404":
+          description: Not found
+        "500":
+          description: Internal Server Error
+        "200":
+          description: Valid password recovery request
+  /api/v1/user/passwordrecovery/update:
+    post:
+      tags:
+      - User Resource
+      summary: Requests the password update in the password recovery procedure
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PasswordRecoveryUpdateRequestDTO'
+      responses:
+        "400":
+          description: Bad Request
+        "401":
+          description: "Password recovery request does not exists, disabled, already\
+            \ used or expired"
+        "403":
+          description: Forbidden
+        "404":
+          description: Not found
+        "500":
+          description: Internal Server Error
+        "200":
+          description: Password successfully set
+  /api/v1/user/passwordrecovery/verify:
+    post:
+      tags:
+      - User Resource
+      summary: Validates the password recovery requests by checking if it exists and
+        if has not been used or invalidated
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+      responses:
+        "400":
+          description: Bad Request
+        "401":
+          description: "Password recovery request does not exists, disabled, already\
+            \ used or expired"
+        "403":
+          description: Forbidden
+        "404":
+          description: Not found
+        "500":
+          description: Internal Server Error
+        "200":
+          description: Valid password recovery request
   /api/v1/user/update/info:
     put:
       tags:
@@ -202,31 +277,6 @@ paths:
           description: Internal Server Error
         "204":
           description: User password successfully updated
-  /api/v1/user/verify/passwordrecovery:
-    post:
-      tags:
-      - User Resource
-      summary: Validates the password recovery requests by checking if it exists and
-        if has not been used or invalidated
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: string
-      responses:
-        "400":
-          description: Bad Request
-        "401":
-          description: "Password recovery request does not exists, disabled, already\
-            \ used or expired"
-        "403":
-          description: Forbidden
-        "404":
-          description: Not found
-        "500":
-          description: Internal Server Error
-        "200":
-          description: Valid password recovery request
 components:
   schemas:
     AuthenticationRequestDTO:
@@ -240,6 +290,17 @@ components:
       type: object
       properties:
         email:
+          type: string
+    PasswordRecoveryUpdateRequestDTO:
+      type: object
+      properties:
+        passwordRecoveryRequestHashedId:
+          type: string
+        passwordRecoveryEmail:
+          type: string
+        newPassword:
+          type: string
+        confirmPassword:
           type: string
     SlabDTO:
       type: object

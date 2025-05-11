@@ -34,12 +34,14 @@ import {MatDialogContent} from "@angular/material/dialog";
 })
 export class LoginComponent {
 
-	loginForm: FormGroup;
-	subscriptions: Subscription[] = [];
+  protected loginForm: FormGroup;
+  protected subscriptions: Subscription[] = [];
 
-	usernameErrorMessage = signal('');
-	passwordErrorMessage = signal('');
-	generalErrorMessage = signal('');
+  protected showPassword = false;
+
+  protected usernameErrorMessage = signal('');
+  protected passwordErrorMessage = signal('');
+  protected generalErrorMessage = signal('');
 
 	constructor(private router: Router, private authService: AuthService) {
 

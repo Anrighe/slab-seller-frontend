@@ -61,7 +61,7 @@ export class PasswordRecoveryComponent {
       next: () => {
         this.successMessage.set(`Password recovery email sent to ${this.passwordRecoveryForm.value.email}`);
       },
-      error: () => {
+      error: (error) => {
         this.generalErrorMessage.set('Something went wrong, please try again later');
       }
     });
