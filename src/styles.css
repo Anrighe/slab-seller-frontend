@@ -14,3 +14,17 @@ body {
 .button-bg {
   background-color: #460017 !important;
 }
+
+/*
+  Fixes the annoying visual glitch in Angular Material form fields:
+   Removes the invisible left border and sets the background color of the notch
+    to match the form/dialog background, preventing a visible white line on zoom or small screens
+*/
+.mat-mdc-form-field .mdc-notched-outline__notch {
+  border-left: none !important;
+}
+
+/* Standard color for the required asterisk in forms */
+.mat-mdc-form-field-required-marker {
+  color: #a92620 !important;
+}

@@ -1,31 +1,132 @@
 <div class="container center-container register-form" mat-dialog-content>
-  <!--<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-    <h2 class="text-light text-center">Password recovery</h2>
-    <hr class="border-light">
-    <div class="form-group">
-      <mat-form-field class="w-100 form-font" appearance="outline" color="accent">
-        <mat-label class="text-light">Email address</mat-label>
-        <input matInput class="text-light" formControlName="email">
-        @if (passwordRecoveryForm.invalid) {
+
+  <form [formGroup]="registerForm"  (ngSubmit)="onSubmit()">
+    <div class="form-group" >
+
+      <!-- Username entry -->
+      <mat-form-field #username
+                      class="w-100 form-font"
+                      appearance="outline"
+                      color="accent">
+
+        <mat-label class="text-light">
+          Username
+        </mat-label>
+
+        <input matInput
+               class="text-light"
+               formControlName="username">
+
+        @if (registerForm.invalid) {
+          <mat-error>{{usernameErrorMessage()}}</mat-error>
+        }
+      </mat-form-field>
+
+      <!-- Email entry -->
+      <mat-form-field #email
+                      class="w-100 form-font"
+                      appearance="outline"
+                      color="accent">
+        <mat-label class="text-light">
+          Email address
+        </mat-label>
+
+        <input matInput class="text-light"
+               formControlName="email">
+
+        @if (registerForm.invalid) {
           <mat-error>{{emailErrorMessage()}}</mat-error>
         }
       </mat-form-field>
-    </div>
 
-    <div *ngIf="generalErrorMessage()">
-      <mat-error>{{generalErrorMessage()}}</mat-error>
-    </div>
+      <!-- Password entry -->
+      <mat-form-field #password
+                      class="w-100 form-font"
+                      appearance="outline"
+                      color="accent">
 
-    <div>
-      <button mat-raised-button
-              [disabled]="passwordRecoveryForm.get('email')?.value === ''" color="warn w-100"
-              style="background-color: #460017;">
-        Recovery
-      </button>
+        <mat-label class="text-light">
+          Password
+        </mat-label>
+
+        <input matInput
+               class="text-light"
+               [type]="showPassword ? 'text' : 'password'"
+               formControlName="password">
+
+        <button type="button"
+                mat-icon-button
+                matSuffix
+                (click)="showPassword = !showPassword"
+                [attr.aria-label]="'Toggle password visibility'"
+                [attr.aria-pressed]="showPassword">
+          <mat-icon>{{ showPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+
+        @if (registerForm.invalid) {
+          <mat-error>{{passwordErrorMessage()}}</mat-error>
+        }
+      </mat-form-field>
+
+      <!-- First name entry -->
+      <mat-form-field #firstname
+                      class="w-100 form-font"
+                      appearance="outline"
+                      color="accent">
+
+        <mat-label class="text-light">
+          First name
+        </mat-label>
+
+        <input matInput class="text-light"
+               formControlName="firstName">
+
+        @if (registerForm.invalid) {
+          <mat-error>{{firstNameErrorMessage()}}</mat-error>
+        }
+      </mat-form-field>
+
+      <!-- Last name entry -->
+      <mat-form-field #lastname
+                      class="w-100 form-font"
+                      appearance="outline"
+                      color="accent">
+
+        <mat-label class="text-light">
+          Last name
+        </mat-label>
+
+        <input matInput class="text-light"
+               formControlName="lastName">
+
+        @if (registerForm.invalid) {
+          <mat-error>{{lastNameErrorMessage()}}</mat-error>
+        }
+      </mat-form-field>
+
     </div>
-  </form>-->
+  </form>
+
+  <div *ngIf="generalErrorMessage()">
+    <mat-error>{{generalErrorMessage()}}</mat-error>
+  </div>
+
+  <div>
+    <button mat-raised-button
+            [disabled]="registerForm.get('email')?.value === ''" color="warn w-100"
+            class="button-bg text-light">
+      Create your account
+    </button>
+  </div>
+
+  <div *ngIf="successMessage()" class="mt-4 d-flex align-items-center gap-2">
+    <span class="text-success fst-italic">
+      {{ successMessage() }}
+    </span>
+  </div>
 
   <br>
+
   <div class="text-start">
     <span class="text-light"><a routerLink="/passwordrecovery">Forgot your password?</a></span>
   </div>

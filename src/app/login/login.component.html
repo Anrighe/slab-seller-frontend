@@ -6,7 +6,7 @@
                       appearance="outline"
                       color="accent">
 
-        <mat-label class="text-light">Username</mat-label>
+        <mat-label class="text-light">Username </mat-label>
 
         <input matInput class="text-light"
                formControlName="username">
@@ -18,7 +18,7 @@
 
     <div class="form-group">
       <mat-form-field class="w-100 form-font mat-form-field-appearance-outline" appearance="outline" color="accent">
-        <mat-label class="text-light">Password</mat-label>
+        <mat-label class="text-light">Password </mat-label>
         <input matInput
                [type]="showPassword ? 'text' : 'password'"
                class="text-light"
@@ -48,7 +48,7 @@
       <button mat-raised-button
               [disabled]="loginForm.get('username')?.value === '' || loginForm.get('password')?.value === ''"
               color="warn w-100"
-              style="background-color: #460017;">
+              class="text-light button-bg">
         Login
       </button>
     </div>
