@@ -49,7 +49,7 @@ export class RegisterComponent {
 
     this.registerForm = new FormGroup({
       'username': new FormControl('', Validators.required),
-      'email': new FormControl('', Validators.required),
+      'email': new FormControl('', [Validators.required, Validators.email]),
       'password': new FormControl('', Validators.required),
       'firstName': new FormControl('', Validators.required),
       'lastName': new FormControl('', Validators.required)
@@ -58,7 +58,6 @@ export class RegisterComponent {
     merge(this.registerForm.statusChanges, this.registerForm.valueChanges)
       .pipe(takeUntilDestroyed())
       .subscribe(() => this.updateErrorMessage());
-
   }
 
   onSubmit() {
@@ -73,13 +72,12 @@ export class RegisterComponent {
       lastName: this.registerForm.get('lastName')?.value
     };
 
-    // TODO: improve error and success signaling (success now signals null as the result and error object Object
     const subscription = this.userResourceService.apiV1UserCreatePost(userCreationRequestDTO).subscribe({
       next: result => {
-        this.successMessage.set(`User ${userCreationRequestDTO.username} has been successfully created: ${result}`);
+        this.successMessage.set(`User ${userCreationRequestDTO.username} has been successfully created`);
       },
       error: error => {
-        this.generalErrorMessage.set(`Could not create the specify user: ${error}`);
+        this.generalErrorMessage.set(error.error);
         console.log(error);
       }
     });
@@ -87,20 +85,52 @@ export class RegisterComponent {
     this.subscriptions.push(subscription);
   }
 
-
   onDestroy() {
     this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
   updateErrorMessage() {
+    const usernameControl = this.registerForm.get('username');
     const emailControl = this.registerForm.get('email');
+    const passwordControl = this.registerForm.get('password');
+    const firstNameControl = this.registerForm.get('firstName');
+    const lastNameControl = this.registerForm.get('lastName');
 
+    // Username
+    if (usernameControl?.hasError('required')) {
+      this.usernameErrorMessage.set('You must enter a username');
+    } else {
+      this.usernameErrorMessage.set('');
+    }
+
+    // Email
     if (emailControl?.hasError('required')) {
       this.emailErrorMessage.set('You must enter an email address');
     } else if (emailControl?.hasError('email')) {
       this.emailErrorMessage.set('You must enter a valid email address');
     } else {
       this.emailErrorMessage.set('');
+    }
+
+    // Password
+    if (passwordControl?.hasError('required')) {
+      this.passwordErrorMessage.set('You must enter a password');
+    } else {
+      this.passwordErrorMessage.set('');
+    }
+
+    // First Name
+    if (firstNameControl?.hasError('required')) {
+      this.firstNameErrorMessage.set('You must enter your first name');
+    } else {
+      this.firstNameErrorMessage.set('');
+    }
+
+    // Last Name
+    if (lastNameControl?.hasError('required')) {
+      this.lastNameErrorMessage.set('You must enter your last name');
+    } else {
+      this.lastNameErrorMessage.set('');
     }
   }
 

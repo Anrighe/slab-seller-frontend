@@ -5,7 +5,7 @@
 
       <!-- Username entry -->
       <mat-form-field #username
-                      class="w-100 form-font"
+                      class="w-100 form-font mb-2"
                       appearance="outline"
                       color="accent">
 
@@ -17,14 +17,14 @@
                class="text-light"
                formControlName="username">
 
-        @if (registerForm.invalid) {
-          <mat-error>{{usernameErrorMessage()}}</mat-error>
+        @if (registerForm.get('username')?.invalid && (registerForm.get('username')?.touched || registerForm.get('username')?.dirty)) {
+          <mat-error>{{ usernameErrorMessage() }}</mat-error>
         }
       </mat-form-field>
 
       <!-- Email entry -->
       <mat-form-field #email
-                      class="w-100 form-font"
+                      class="w-100 form-font mb-2"
                       appearance="outline"
                       color="accent">
         <mat-label class="text-light">
@@ -34,14 +34,14 @@
         <input matInput class="text-light"
                formControlName="email">
 
-        @if (registerForm.invalid) {
+        @if (registerForm.get('email')?.invalid && (registerForm.get('email')?.touched || registerForm.get('email')?.dirty)) {
           <mat-error>{{emailErrorMessage()}}</mat-error>
         }
       </mat-form-field>
 
       <!-- Password entry -->
       <mat-form-field #password
-                      class="w-100 form-font"
+                      class="w-100 form-font mb-2"
                       appearance="outline"
                       color="accent">
 
@@ -63,14 +63,14 @@
           <mat-icon>{{ showPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
         </button>
 
-        @if (registerForm.invalid) {
+        @if (registerForm.get('password')?.invalid && (registerForm.get('password')?.touched || registerForm.get('password')?.dirty)) {
           <mat-error>{{passwordErrorMessage()}}</mat-error>
         }
       </mat-form-field>
 
       <!-- First name entry -->
       <mat-form-field #firstname
-                      class="w-100 form-font"
+                      class="w-100 form-font mb-2"
                       appearance="outline"
                       color="accent">
 
@@ -81,14 +81,14 @@
         <input matInput class="text-light"
                formControlName="firstName">
 
-        @if (registerForm.invalid) {
+        @if (registerForm.get('firstName')?.invalid && (registerForm.get('firstName')?.touched || registerForm.get('firstName')?.dirty)) {
           <mat-error>{{firstNameErrorMessage()}}</mat-error>
         }
       </mat-form-field>
 
       <!-- Last name entry -->
       <mat-form-field #lastname
-                      class="w-100 form-font"
+                      class="w-100 form-font mb-2"
                       appearance="outline"
                       color="accent">
 
@@ -99,20 +99,23 @@
         <input matInput class="text-light"
                formControlName="lastName">
 
-        @if (registerForm.invalid) {
+        @if (registerForm.get('lastName')?.invalid && (registerForm.get('lastName')?.touched || registerForm.get('lastName')?.dirty)) {
           <mat-error>{{lastNameErrorMessage()}}</mat-error>
         }
       </mat-form-field>
 
     </div>
-    <div *ngIf="generalErrorMessage()">
-      <mat-error>{{generalErrorMessage()}}</mat-error>
+
+    <div *ngIf="generalErrorMessage()" class="mb-2 d-flex align-items-center gap-2">
+      <mat-error class="fst-italic">
+        {{generalErrorMessage()}}
+      </mat-error>
     </div>
 
-    <div *ngIf="successMessage()" class="mt-4 d-flex align-items-center gap-2">
-    <span class="text-success fst-italic">
-      {{ successMessage() }}
-    </span>
+    <div *ngIf="successMessage()" class="mb-2 d-flex align-items-center gap-2">
+      <span class="text-success fst-italic">
+        {{ successMessage() }}
+      </span>
     </div>
 
     <div>
@@ -123,18 +126,18 @@
         Create your account
       </button>
     </div>
+
+    <br>
+
+    <div class="text-start">
+      <span class="text-light"><a routerLink="/passwordrecovery">Forgot your password?</a></span>
+    </div>
+
+    <hr class="border-light">
+
+    <div class="text-light text-center">
+      <span class="text-light">Already have an account? <a routerLink="/login">Login here!</a></span>
+    </div>
   </form>
-
-  <br>
-
-  <div class="text-start">
-    <span class="text-light"><a routerLink="/passwordrecovery">Forgot your password?</a></span>
-  </div>
-
-  <hr class="border-light">
-
-  <div class="text-light text-center">
-    <span class="text-light">Already have an account? <a routerLink="/login">Login here!</a></span>
-  </div>
 
 </div>
