@@ -1,6 +1,6 @@
 <div class="container center-container register-form" mat-dialog-content>
 
-  <form [formGroup]="registerForm"  (ngSubmit)="onSubmit()">
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
     <div class="form-group" >
 
       <!-- Username entry -->
@@ -105,25 +105,25 @@
       </mat-form-field>
 
     </div>
-  </form>
+    <div *ngIf="generalErrorMessage()">
+      <mat-error>{{generalErrorMessage()}}</mat-error>
+    </div>
 
-  <div *ngIf="generalErrorMessage()">
-    <mat-error>{{generalErrorMessage()}}</mat-error>
-  </div>
-
-  <div>
-    <button mat-raised-button
-            [disabled]="registerForm.get('email')?.value === ''" color="warn w-100"
-            class="button-bg text-light">
-      Create your account
-    </button>
-  </div>
-
-  <div *ngIf="successMessage()" class="mt-4 d-flex align-items-center gap-2">
+    <div *ngIf="successMessage()" class="mt-4 d-flex align-items-center gap-2">
     <span class="text-success fst-italic">
       {{ successMessage() }}
     </span>
-  </div>
+    </div>
+
+    <div>
+      <button mat-raised-button
+              [disabled]="registerForm.get('email')?.value === ''"
+              color="warn w-100"
+              class="button-bg text-light">
+        Create your account
+      </button>
+    </div>
+  </form>
 
   <br>
 

@@ -1,15 +1,15 @@
-import {Component, inject, signal} from "@angular/core";
+import {Component, inject, signal } from "@angular/core";
 import { MatInputModule } from "@angular/material/input";
 import { MatIconModule } from "@angular/material/icon";
 import { MatButtonModule } from "@angular/material/button";
-import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 import { CommonModule } from "@angular/common";
 import { MatDialogContent } from "@angular/material/dialog";
-import {Router, RouterLink} from "@angular/router";
-import {merge, Subscription} from "rxjs";
-import {AuthService} from "../auth/auth.service";
-import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
-import {PasswordRecoveryRequestDTO} from "../../openapi";
+import { Router, RouterLink } from "@angular/router";
+import { merge, Subscription } from "rxjs";
+import { AuthService } from "../auth/auth.service";
+import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
+import {UserCreationRequestDTO, UserResourceService} from "../../openapi";
 
 @Component({
   selector: 'app-register',
@@ -43,6 +43,7 @@ export class RegisterComponent {
 
   private router: Router = inject(Router);
   private authService: AuthService = inject(AuthService);
+  private userResourceService: UserResourceService = inject(UserResourceService);
 
   constructor() {
 
@@ -64,21 +65,26 @@ export class RegisterComponent {
     this.successMessage.set('');
     this.generalErrorMessage.set('');
 
-    /*const passwordRecoveryRequestDTO: PasswordRecoveryRequestDTO = {
-      email: this.registerForm.value.email
+    const userCreationRequestDTO: UserCreationRequestDTO = {
+      username: this.registerForm.get('username')?.value,
+      password: this.registerForm.get('password')?.value,
+      email: this.registerForm.get('email')?.value,
+      firstName: this.registerForm.get('firstName')?.value,
+      lastName: this.registerForm.get('lastName')?.value
     };
 
-    console.log(passwordRecoveryRequestDTO);
-    const subscription = this.emailResourceService.apiV1EmailPasswordrecoveryPost(passwordRecoveryRequestDTO).subscribe({
-      next: () => {
-        this.successMessage.set(`Password recovery email sent to ${this.passwordRecoveryForm.value.email}`);
+    // TODO: improve error and success signaling (success now signals null as the result and error object Object
+    const subscription = this.userResourceService.apiV1UserCreatePost(userCreationRequestDTO).subscribe({
+      next: result => {
+        this.successMessage.set(`User ${userCreationRequestDTO.username} has been successfully created: ${result}`);
       },
-      error: (error) => {
-        this.generalErrorMessage.set('Something went wrong, please try again later');
+      error: error => {
+        this.generalErrorMessage.set(`Could not create the specify user: ${error}`);
+        console.log(error);
       }
     });
 
-    this.subscriptions.push(subscription);*/
+    this.subscriptions.push(subscription);
   }
 
 
