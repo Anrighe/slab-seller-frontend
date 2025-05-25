@@ -1,7 +1,9 @@
 <mat-toolbar #header color="primary" class="header">
 
-  <app-logo-title ></app-logo-title>
+  <app-logo-title></app-logo-title>
 
-  <app-sections [hidden]="!userAuthenticated" style="height:100%;"></app-sections>
+  <app-sections class="h-100"
+                [hidden]="!userAuthenticated">
+  </app-sections>
 
 </mat-toolbar>

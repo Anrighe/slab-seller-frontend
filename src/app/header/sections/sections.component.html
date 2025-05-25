@@ -1,3 +1,39 @@
-<div style="display: flex; align-items: center; justify-content: flex-end; margin: 0; padding: 0;">
-	<button mat-button class="navbar-button" *ngFor="let section of sections">{{ section.label }}</button>
+<div class="section-container">
+  <ng-container *ngFor="let section of sections">
+
+    <!-- If section has subitems -->
+    <ng-container *ngIf="section.menuItems?.length; else noMenu">
+
+      <button mat-button
+              [matMenuTriggerFor]="menu"
+              class="navbar-button">
+        {{ section.label }}
+      </button>
+
+      <mat-menu #menu="matMenu">
+        <ng-container *ngFor="let item of section.menuItems">
+
+          <button mat-menu-item
+                  *ngIf="item.link && !item.action"
+                  [routerLink]="item.link">
+            {{ item.label }}
+          </button>
+
+          <button mat-menu-item *ngIf="item.action"
+                  (click)="item.action()">
+            {{ item.label }}
+          </button>
+
+        </ng-container>
+      </mat-menu>
+    </ng-container>
+
+    <!-- If section is just a button -->
+    <ng-template #noMenu>
+      <button mat-button [routerLink]="section.link" class="navbar-button">
+        {{ section.label }}
+      </button>
+    </ng-template>
+
+  </ng-container>
 </div>

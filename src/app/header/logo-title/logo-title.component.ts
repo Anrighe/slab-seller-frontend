@@ -15,8 +15,8 @@ export class LogoTitleComponent {
 
   private router: Router = inject(Router);
 
-  logoFilename: String = 'logo.jpg';
-  titleFilename: String = 'title.png';
+  protected logoFilename: String = 'logo.jpg';
+  protected titleFilename: String = 'title.png';
 
   redirectToHomePage() {
     this.router.navigate(['']);

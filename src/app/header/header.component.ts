@@ -1,13 +1,11 @@
-import {Component, inject} from "@angular/core";
+import { Component, inject } from "@angular/core";
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { AuthService } from '../auth/auth.service';
 import { LogoTitleComponent } from "./logo-title/logo-title.component";
 import { SectionsComponent } from "./sections/sections.component";
-import { NgFor, NgIf } from "@angular/common";
 import { Subscription } from "rxjs";
-import { Sections, USER_SECTIONS } from "../commons/sections";
 
 
 @Component({
@@ -19,9 +17,8 @@ import { Sections, USER_SECTIONS } from "../commons/sections";
 })
 export class HeaderComponent {
 
-  userAuthenticated: Boolean = false;
-  subscriptions: Subscription[] = [];
-  section: Sections[] = USER_SECTIONS;
+  private subscriptions: Subscription[] = [];
+  protected userAuthenticated: Boolean = false;
 
   private authService: AuthService = inject(AuthService);
 

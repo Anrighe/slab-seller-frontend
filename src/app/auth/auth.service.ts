@@ -5,11 +5,10 @@ import {
 	AuthenticationResourceService,
 	TokenValidationRequestDTO } from "../../openapi";
 import { BehaviorSubject, Observable, Subscription, catchError, firstValueFrom, tap } from "rxjs";
-import {TokenService} from "./token.service";
+import { TokenService } from "./token.service";
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
-
 
 	private subscriptions: Subscription[] = [];
 	private userAuthenticatedSubject = new BehaviorSubject<boolean>(false); // Used to hide parts of the UI
@@ -104,6 +103,12 @@ export class AuthService {
 	getUserAuthenticatedUI(): Observable<boolean> {
 		return this.userAuthenticatedSubject.asObservable();
 	}
+
+  /** Removes the session and refresh tokens from the browser's local storage */
+  removeLocalStorageTokens(): void {
+    localStorage.removeItem('sessionToken');
+    localStorage.removeItem('refreshToken');
+  }
 
 	onDestroy() {
 		this.subscriptions.forEach(subscription => subscription.unsubscribe());
